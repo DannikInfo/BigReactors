@@ -4,6 +4,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
 
 import org.lwjgl.opengl.GL11;
 
@@ -29,9 +30,9 @@ public class BeefGuiInsertionProgressBar extends BeefGuiControlBase implements I
 	protected float insertion = 0f;
 
 	protected String[] tooltip = {
-			EnumChatFormatting.AQUA + "Control Rod",
+			EnumChatFormatting.AQUA + StatCollector.translateToLocal("Control Rod"),
 			"",
-			"Insertion: XX%"
+			StatCollector.translateToLocal("Insertion:") +  " XX%"
 	};
 	
 	public BeefGuiInsertionProgressBar(BeefGuiBase container, int x, int y) {
@@ -83,7 +84,7 @@ public class BeefGuiInsertionProgressBar extends BeefGuiControlBase implements I
 
 	@Override
 	public String[] getTooltip() {
-		tooltip[2] = String.format("Insertion: %.0f%%", this.insertion*100f);
+		tooltip[2] = String.format(StatCollector.translateToLocal("Insertion:") + " %.0f%%", this.insertion*100f);
 		return tooltip;
 	}
 

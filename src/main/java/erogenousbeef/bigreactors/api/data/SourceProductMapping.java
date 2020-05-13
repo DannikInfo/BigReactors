@@ -1,5 +1,7 @@
 package erogenousbeef.bigreactors.api.data;
 
+import net.minecraft.util.StatCollector;
+
 public class SourceProductMapping {
 
 	protected String source;
@@ -15,10 +17,10 @@ public class SourceProductMapping {
 	 * @param productAmount The amount of product stuff produced
 	 */
 	public SourceProductMapping(String sourceKey, int sourceAmount, String productKey, int productAmount) {
-		if(sourceKey == null) { throw new IllegalArgumentException("Cannot create mapping with null source name string"); }
-		if(productKey == null) { throw new IllegalArgumentException("Cannot create mapping with null product name string"); }
-		if(sourceAmount <= 0) { throw new IllegalArgumentException("Cannot create mapping which consumes less than 1 unit of source item"); }
-		if(productAmount <= 0) { throw new IllegalArgumentException("Cannot create mapping which produces less than 1 unit of product item"); }
+		if(sourceKey == null) { throw new IllegalArgumentException(StatCollector.translateToLocal("Cannot create mapping with null source name string")); }
+		if(productKey == null) { throw new IllegalArgumentException(StatCollector.translateToLocal("Cannot create mapping with null product name string")); }
+		if(sourceAmount <= 0) { throw new IllegalArgumentException(StatCollector.translateToLocal("Cannot create mapping which consumes less than 1 unit of source item")); }
+		if(productAmount <= 0) { throw new IllegalArgumentException(StatCollector.translateToLocal("Cannot create mapping which produces less than 1 unit of product item")); }
 
 		this.source  = sourceKey;
 		this.product = productKey;

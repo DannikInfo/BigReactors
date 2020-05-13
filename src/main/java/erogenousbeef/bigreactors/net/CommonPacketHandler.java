@@ -70,6 +70,6 @@ public class CommonPacketHandler {
         INSTANCE.registerMessage(ReactorAccessPortChangeDirectionMessage.Handler.class, ReactorAccessPortChangeDirectionMessage.class, 18, Side.SERVER);
         INSTANCE.registerMessage(TurbineChangeMaxIntakeMessage.Handler.class, TurbineChangeMaxIntakeMessage.class, 20, Side.SERVER);
         INSTANCE.registerMessage(TurbineChangeVentMessage.Handler.class, TurbineChangeVentMessage.class, 22, Side.SERVER);
-        INSTANCE.registerMessage(TurbineChangeInductorMessage.Handler.class, TurbineChangeInductorMessage.class, 24, Side.SERVER);
+        INSTANCE.registerMessage(TurbineChangeInductorMessage.Handler.class, TurbineChangeInductorMessage.class, 24, Side.SERVER); 
     }
 }

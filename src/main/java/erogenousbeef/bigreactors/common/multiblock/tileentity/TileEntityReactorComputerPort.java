@@ -97,8 +97,6 @@ public class TileEntityReactorComputerPort extends TileEntityReactorPart impleme
 		TileEntityReactorControlRod controlRod;
 
 		switch(computerMethod) {
-		case getEnergyStored:
-			return new Object[] { (int)reactor.getEnergyStored() };
 		case getNumberOfControlRods:
 			return new Object[] { (int)reactor.getFuelRodCount() };
 		case getActive:

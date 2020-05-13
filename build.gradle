@@ -26,34 +26,28 @@ group = "erogenousbeef" // http://maven.apache.org/guides/mini/guide-naming-conv
 archivesBaseName = "BigReactors"
 
 minecraft {
-    version = "1.7.10-10.13.2.1291"
-    runDir = "run"	
+    version = "1.7.10-10.13.4.1558-1.7.10"
+    runDir = "eclipse"	
 
     replaceIn "BRConfig.java"
     replace "@VERSION@", project.version
 }
 
 repositories {
-    maven {
-        name = "OpenComputers"
-        url = "http://maven.cil.li/"
+    maven { 
+        url = "http://maven.cil.li/" 
     }
-    maven {
-        name = "codechicken"
-        url = "http://chickenbones.net/maven"
-    }
-    ivy {
-        name "CoFHCore"
-        artifactPattern "http://addons-origin.cursecdn.com/files/2230/211/[module]-[revision].[ext]"
-    }
+    flatDir {
+       dirs 'lib'
+   }
 }
 
 dependencies {
-    //compile 'codechicken:CodeChickenCore:1.7.10-1.0.4.29:dev'
-    //compile 'codechicken:NotEnoughItems:1.7.10-1.0.3.67:dev'
-    compile 'com.mod-buildcraft:buildcraft:6.0.18:dev'
-    compile 'li.cil.oc:OpenComputers:MC1.7.10-1.4.0.+:api'
-    compile name: 'CoFHCore', version: '[1.7.10]3.0.0RC7-211-dev', ext: 'jar'
+    compile 'com.mod-buildcraft:buildcraft:7.1.23:dev'
+    compile 'li.cil.oc:OpenComputers:MC1.7.10-1.5.+:api'
+    compile group: 'cofh', name: 'CoFHCore', version: '[1.7.10]3.1.4-329-dev', ext: 'jar'
+    compile 'net.industrial-craft:industrialcraft-2:2.2.827-experimental:api'
+    compile 'net.industrial-craft:industrialcraft-2:2.2.827-experimental:dev'
 }
 
 processResources

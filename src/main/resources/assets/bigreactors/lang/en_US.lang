@@ -1,5 +1,5 @@
 # Big Reactors Language File - English
-# @author Erogenous Beef
+# @author Erogenous Beef/dannikinfo
 
 itemGroup.BigReactors=Big Reactors
 
@@ -62,3 +62,377 @@ fluid.steam=Steam
 tile.fluid.yellorium.still.name=Fluid Yellorium
 tile.fluid.cyanite.still.name=Fluid Cyanite
 tile.fluid.blutonium.still.name=Fluid Blutonium
+
+# GUI
+
+#--- AccessPort GUI
+
+Eject_Fuel=Eject Fuel
+Ejects_fuel_contained_in_the=Ejects fuel contained in the 
+reactor_placing_ingots_in_the=reactor, placing ingots in the
+reactors_access_ports=reactor's access ports.
+SHIFT_Dump_excess_fuel=SHIFT: Dump excess fuel.
+SHIFT_Dump_excess_waste=SHIFT: Dump excess waste.
+Eject_Waste=Eject Waste
+Ejects_waste_contained_in_the=Ejects waste contained in the
+Inlet_Mode=InletMode
+Sets_the_access_port_to=Sets the access port to
+inlet_mode=inlet mode.
+Port_WILL_accept=Port WILL accept
+Port_WILL_NOT_eject=Port WILL NOT eject
+items_to_pipes/ducts=tems_to_pipes/ducts.
+Outlet_Mode=Outlet Mode
+Sets_the_access_port_to=Sets the access port to
+outlet_mode=outlet mode.
+Port_WILL_NOT_accept=Port WILL NOT accept
+items_from_pipes/ducts=items from pipes/ducts.
+Port_WILL_eject=Port WILL eject
+ingots_to_pipes/ducts=ingots to pipes/ducts.
+
+#--- ControlRod GUI
+
+Rod_Insertion=Rod Insertion
+Change_the_control_rods_insertion=Change the control rod's insertion.
+Higher_insertion_slows_reaction_rate=Higher insertion slows reaction rate
+Lower_reaction_rates_reduce_heat=Lower reaction rates reduce heat,
+energy_radiation_output_and=energy, radiation output, and
+fuel_consumption=fuel consumption.
+Insert_Rod=Insert Rod
+Increase_insertion_by_10=Increase insertion by 10.
+Shift_P100=Shift: +100
+Alt_P5=Alt: +5
+ShiftAlt_P1=Shift+Alt: +1
+Ctrl_Change_ALL_Rods=Ctrl: Change ALL Rods
+Retract_Rod=Retract_Rod
+Reduce_insertion_by_10=Reduce insertion by 10.
+Shift_M100=Shift: -100
+Alt_M5=Alt: -5
+ShiftAlt_M1=Shift+Alt: -1
+Ctrl_Change_ALL_Rods=Ctrl: Change ALL Rods
+Reactor_Control_Rod=Reactor Control Rod
+Set=Set
+Name:=Name:
+
+#--- RedNetPort GUI
+
+Input_Toggle_reactor_on/off=Input: Toggle reactor on/off
+Input_Change_control_rod_insertion=Input: Change control rod insertion
+Input_Eject_Waste=Input: Eject Waste
+Output_Fuel_Temp=Output: Fuel Temp (C)
+Output_Casing_Temp=Output: Casing Temp (C)
+Output_Fuel_mix=Output: Fuel mix (% fuel, 0-100)
+Output_Fuel_amount=Output: Fuel_amount
+Output_Waste_amount=Output: Waste amount
+Output_Energy_amount=Output: Energy amount (%)
+Activates_On=Activates On:
+Pulse=Pulse
+Level=Level
+INVALID=INVALID: 
+Control_Rod=Control Rod:
+Commit=Commit
+Settings=Settings
+
+#--- ReactorStatus GUI
+
+Activate Reactor=Activate Reactor
+Deactivate Reactor=Deactvate Reactor
+Residual heat will still=Residual heat will still
+generate power/consume coolant,=generate power/consume coolant,
+until the reactor cools.=until the reactor cools.
+Auto-Eject Waste=Auto-Eject Waste
+Waste in the core will be ejected.=Waste in the core will be ejected.
+as soon as possible=as soon as possible
+Do Not Auto-Eject Waste=Do Not Auto-Eject Waste
+Waste must be manually ejected=Waste must be manually ejected.
+Ejection can be done from this=Ejection can be done from this
+screen, or via rednet,=screen, or via rednet,
+redstone or computer port signals.=redstone or computer port signals.
+Eject Waste Now=Eject Waste Now
+Ejects waste from the core=Ejects waste from the core
+into access ports.=into access ports.
+Each 1000mB waste 1 ingot=Each 1000mB waste 1 ingot
+SHIFT: Dump excess waste, if any=SHIFT: Dump excess waste, if any
+Reactor Control=Reactor Control
+Core Temperature=Core Temperature
+Temperature inside the reactor core.=Temperature inside the reactor core.
+Higher temperatures increase fuel burnup.=Higher temperatures increase fuel burnup.
+Fuel Burnup Rate=Fuel Burnup Rate
+The rate at which fuel is=The rate at which fuel is
+fissioned into waste in the core.=fissioned into waste in the core.
+Fuel Reactivity=Fuel Reactivity
+How heavily irradiated the core is.=How heavily irradiated the core is.
+Higher levels of radiation=Higher levels of radiation
+reduce fuel burnup.=reduce fuel burnup.
+Core Heat=Core Heat
+Heat of the reactor's fuel.=Heat of the reactor's fuel.
+High heat raises fuel usage.=High heat raises fuel usage.
+Core heat is transferred to=Core heat is transferred to
+the casing. Transfer rate=the casing. Transfer rate
+is based on the design of=is based on the design of
+the reactor's interior.=the reactor's interior.
+Casing Heat=Casing Heat
+Heat of the reactor's casing.=Heat of the reactor's casing.
+High heat raises energy output=High heat raises energy output
+and coolant conversion.=and coolant conversion.
+Coolant Fluid Tank=Coolant Fluid Tank
+Casing heat will superheat=Casing heat will superheat
+coolant in this tank.=coolant in this tank.
+Hot Fluid Tank=Hot Fluid Tank
+Superheated coolant=Superheated coolant
+will pump into this tank,=will pump into this tank,
+and must be piped out=and must be piped out
+via coolant ports=via coolant ports
+Status: =Status: 
+Online=Online
+Offline=Offline
+EU per tick=EU per tick
+EU lost per tick=EU lost per tick
+RF per tick=RF per tick
+millibuckets per tick=millibuckets per tick
+Energy Output=Energy Output
+This reactor is passively cooled=This reactor is passively cooled
+and generates energy directly from=and generates energy directly from
+the heat of its core.=the heat of its core.
+Hot Fluid Output=Hot Fluid Output
+This reactor is actively cooled=This reactor is actively cooled
+by a fluid, such as water, which=This reactor is actively cooled
+is superheated by the core.=is superheated by the core.
+millibuckets per tick=millibuckets per tick
+
+#--- TurbineController GUI
+
+Turbine Control=Turbine Control
+Rotor Speed=Rotor Speed
+Speed of the rotor in=Speed of the rotor in
+revolutions per minute.=revolutions per minute.
+Rotors perform best at 900=Rotors perform best at 900
+or 1800 RPM.=or 1800 RPM.
+Speeds over 2000PM are overspeed=Speeds over 2000PM are overspeed
+and may cause a turbine to=and may cause a turbine to
+fail catastrophically.=fail catastrophically.
+Energy Output=Energy Output
+Turbines generate energy via=Turbines generate energy via
+metal induction coils placed=metal induction coils placed
+around a spinning rotor.=around a spinning rotor.
+More, or higher-quality, coils=More, or higher-quality, coils
+generate energy faster.=generate energy faster.
+Rotor Efficiency=Rotor Efficiency
+Rotor blades can only fully=Rotor blades can only fully
+capture energy from %d mB of=capture energy from %d mB of
+fluid per blade.=fluid per blade.
+Efficiency drops if the flow=Efficiency drops if the flow
+of input fluid rises past=of input fluid rises past
+capacity.=capacity.
+Intake Fluid Tank=Intake Fluid Tank
+Exhaust Fluid Tank=Exhaust Fluid Tank
+Rotor Speed=Rotor Speed
+Rotors perform best at=Rotors perform best at
+900 or 1800 RPM.=900 or 1800 RPM.
+Rotors kept overspeed for too=Rotors kept overspeed for too
+long may fail.=long may fail.
+Catastrophically.=Catastrophically.
+Flow Rate GovernorFlow Rate Governor
+Controls the maximum rate at=Controls the maximum rate at
+which hot fluids are drawn=which hot fluids are drawn
+from the turbine's intake tank=from the turbine's intake tank
+and passed over the turbines.=and passed over the turbines.
+Effectively, the max rate at which=Effectively, the max rate at which
+the turbine will process fluids.=the turbine will process fluids.
+Increase Max Flow Rate=Increase Max Flow Rate
+Higher flow rates will=Higher flow rates will
+increase rotor speed.=increase rotor speed.
+SHIFT: +10 mB=SHIFT: +10 mB
+CTRL: +100mB=CTRL: +100mB
+CTRL+SHIFT: +1000mB=CTRL+SHIFT: +1000mB
+Decrease Max Flow Rate=Decrease Max Flow Rate
+Lower flow rates will=Lower flow rates will
+decrease rotor speed.=decrease rotor speed.
+SHIFT: -10 mB=SHIFT: -10 mB
+CTRL: -100mB=CTRL: -100mB
+CTRL+SHIFT: -1000mB=CTRL+SHIFT: -1000mB
+Induction Coils=Induction Coils
+Metal coils inside the turbine=Metal coils inside the turbine
+extract energy from the rotor=extract energy from the rotor
+and convert it into EU/RF.=and convert it into EU/RF.
+These controls engage/disengage=These controls engage/disengage
+the coils.=the coils.
+Engage Coils=Engage Coils
+Engages the induction coils.=Engages the induction coils.
+Energy will be extracted from=Energy will be extracted from
+the rotor and converted to RF.=the rotor and converted to RF.
+Energy extraction exerts drag=Energy extraction exerts drag
+on the rotor, slowing it down.=on the rotor, slowing it down.
+Disengage Coils=Disengage Coils
+Disengages the induction coils.=Disengages the induction coils.
+Energy will NOT be extracted from=Energy will NOT be extracted from
+the rotor, allowing it to=the rotor, allowing it to
+spin faster.=spin faster.
+Activate Turbine=Activate Turbine
+Enables flow of intake fluid to rotor.=Enables flow of intake fluid to rotor.
+Fluid flow will spin up the rotor.=Fluid flow will spin up the rotor.
+Deactivate Turbine=Deactivate Turbine
+Disables flow of intake fluid to rotor.=Disables flow of intake fluid to rotor.
+The rotor will spin down.=The rotor will spin down.
+Vent: All Exhaust=Vent: All Exhaust
+Dump all exhaust fluids.=Dump all exhaust fluids.
+The exhaust fluid tank=The exhaust fluid tank
+will not fill.=will not fill.
+Vent: Overflow Only=Vent: Overflow Only
+Dump excess exhaust fluids.=Dump excess exhaust fluids.
+Excess fluids will be lost=Excess fluids will be lost
+if exhaust fluid tank is full.=if exhaust fluid tank is full.
+Vent: Closed=Vent: Closed
+Preserve all exhaust fluids.=Preserve all exhaust fluids.
+Turbine will slow or halt=Turbine will slow or halt
+fluid intake if exhaust=fluid intake if exhaust
+fluid tank is full.=fluid tank is full.
+Active=Active
+Inactive=Inactive 
+%d / %d blades=%d / %d blades
+Unknown=Unknown
+
+#--- api.data.SourceProductMapping (THROW only)
+
+Cannot create mapping with null source name string=Cannot create mapping with null source name string
+Cannot create mapping with null product name string=Cannot create mapping with null product name string
+Cannot create mapping which consumes less than 1 unit of source item=Cannot create mapping which consumes less than 1 unit of source item
+Cannot create mapping which produces less than 1 unit of product item=Cannot create mapping which produces less than 1 unit of product item
+
+#--- Common.Data.ReactantStack(THROW only)
+
+Cannot split a reactant into a stack of size zero=Cannot split a reactant into a stack of size zero
+
+#--- Common.item.itemBeefDebugTool
+
+Rightclick a block to show debug info=Rightclick a block to show debug info
+Queries on server, by default.=Queries on server, by default.
+Shift:=Shift:
+ Query on client= Query on client 
+[%s] Beef Debug Tool:=[%s] Beef Debug Tool:
+[%s] Canonical ore name for %s: %s=[%s] Canonical ore name for %s: %s
+[%s] All ore names (%d):=[%s] All ore names (%d):
+getAllOreNames returned null=getAllOreNames returned null
+
+#--- MultiBlockReactor
+
+#-Throw strings
+Not enough control rods. Reactors require at least 1.=Not enough control rods. Reactors require at least 1.
+Not enough controllers. Reactors require at least 1.=Not enough controllers. Reactors require at least 1.
+%d, %d, %d - The fluid %s is not valid for the reactor's interior=%d, %d, %d - The fluid %s is not valid for the reactor's interior
+%d, %d, %d - %s is not valid for the reactor's interior=%d, %d, %d - %s is not valid for the reactor's interior
+%d, %d, %d - Null block found, not valid for the reactor's interior=%d, %d, %d - Null block found, not valid for the reactor's interior
+
+#-debug
+Assembled:=Assembled: 
+Attached Blocks:=Attached Blocks: 
+Validation Exception:=Validation Exception:
+Active:=Active: 
+Casing Heat:=Casing Heat: 
+Fuel Heat:=Fuel Heat: 
+Reactant Tanks:=Reactant Tanks:
+Actively Cooled:=Actively Cooled: 
+Coolant Tanks:=Coolant Tanks:
+
+#--- MultiBlockTurbine
+#-throw strings
+Turbines require exactly 1 rotor bearing=Turbines require exactly 1 rotor bearing+
+%s - This block must contain a rotor. The rotor must begin at the bearing and run the entire length of the turbine=%s - This block must contain a rotor. The rotor must begin at the bearing and run the entire length of the turbine
+%s - Rotor blades must be placed closer to the rotor bearing than all other parts inside a turbine=%s - Rotor blades must be placed closer to the rotor bearing than all other parts inside a turbine
+%s - Metal blocks must by placed further from the rotor bearing than all rotor blades=%s - Metal blocks must by placed further from the rotor bearing than all rotor blades
+The rotor shaft must extend the entire length of the turbine interior.=The rotor shaft must extend the entire length of the turbine interior.
+Found %d rotor blocks that are not attached to the main rotor. All rotor blocks must be in a column extending the entire length of the turbine, starting from the bearing.=Found %d rotor blocks that are not attached to the main rotor. All rotor blocks must be in a column extending the entire length of the turbine, starting from the bearing.
+Found %d rotor blades that are not attached to the rotor. All rotor blades must extend continuously from the rotor's shaft.=Found %d rotor blades that are not attached to the rotor. All rotor blades must extend continuously from the rotor's shaft.
+Found %d metal blocks which were not in a ring around the rotor. All metal blocks must be in rings, or partial rings, around the rotor.=Found %d metal blocks which were not in a ring around the rotor. All metal blocks must be in rings, or partial rings, around the rotor.
+
+Assembled:=Assembled: 
+Attached Blocks:=Attached Blocks: 
+Validation Exception:=Validation Exception:
+Active:=Active:  
+Rotor Energy:=Rotor Energy: 
+Rotor Speed:=Rotor Speed: 
+Inductor Engaged:=Inductor Engaged: 
+Vent Status:=Vent Status: 
+Max Intake Rate:=Max Intake Rate: 
+Coil Size:=Coil Size: 
+Rotor Mass:=Rotor Mass: 
+Blade SurfArea:=Blade SurfArea: 
+# Blades:=# Blades: 
+# Shafts:=# Shafts: 
+Rotor Drag CoEff:=Rotor Drag CoEff: 
+Blade Drag:=Blade Drag: 
+Frict Drag:=Blade Drag: 
+Fluid Tanks:=Fluid Tanks:
+outlet=outlet
+inlet=inlet
+empty=empty
+
+#--- common.multiblock.block.BlockMultiBlockGlass
+
+Unable to find a block with the name =Unable to find a block with the name #Throw
+Unrecognized metadata=Unrecognized metadata   #Throw
+SERIOUS ERROR - server part @ %d, %d, %d has no controller!=SERIOUS ERROR - server part @ %d, %d, %d has no controller!
+
+#--- common.multiblock.block.BlockReactorPart
+
+Block is not connected to a reactor. This could be due to lag, or a bug. If the problem persists, try breaking and re-placing the block.=Block is not connected to a reactor. This could be due to lag, or a bug. If the problem persists, try breaking and re-placing the block.
+
+#--- common.multiblock.block.BlockTurbinePart
+
+SERIOUS ERROR - server part @ %d, %d, %d has no controller!=SERIOUS ERROR - server part @ %d, %d, %d has no controller!
+Unable to find a block with the name =Unable to find a block with the name  #Throw
+
+#--- common.multiblock.block.BlockTurbineRotorPart (Only THROW)
+
+Unable to find a block with the name =Unable to find a block with the name 
+
+#--- common.multiblock.helpers.CoolantContainer (only THROW)
+
+Cannot pass a null fluid to getBoilingPoint=Cannot pass a null fluid to getBoilingPoint
+Cannot pass a null fluid to getHeatOfVaporization=Cannot pass a null fluid to getHeatOfVaporization
+Cannot pass a null fluid to getVaporizedCoolantFluid=Cannot pass a null fluid to getVaporizedCoolantFluid
+
+#--- common.multiblock.helpers.FluidHelper (Only THROW)
+
+getNBTTankNames must return the same number of strings as there are fluid stacks=getNBTTankNames must return the same number of strings as there are fluid stacks
+Cannot add fluid with only an integer when tank is empty!=Cannot add fluid with only an integer when tank is empty!
+        
+#--- common.multiblock.helpers.ReactantContainer (Only THROW)
+
+Cannot add reactant with only an integer when tank is empty!=Cannot add reactant with only an integer when tank is empty!
+       
+#--- common.mulltiblock.tileentity.TileEnitityTurbinePartBase
+
+Not attached to controller!=Not attached to controller! 
+
+#--- GUI CONTROLS
+
+#--- BeefGuiFuelMixBar
+
+Core Fuel Status=Core Fuel Status
+full=full
+depleted=depleted
+Fuel Rods:=Fuel Rods:
+Max Capacity:=Max Capacity:
+Fuel:=Fuel:
+Waste:=Waste:
+Total:=Total:
+        
+#--- BeefGuiInsertionProgressBar
+
+Control Rod=Control Rod
+Insertion:=Insertion:
+
+
+#--- BeefCore Throws
+
+Machine is too small.=Machine is too small.
+Machine is too large, it may be at most %d blocks in the X dimension=Machine is too large, it may be at most %d blocks in the X dimension
+Machine is too large, it may be at most %d blocks in the Y dimension=Machine is too large, it may be at most %d blocks in the Y dimension
+Machine is too large, it may be at most %d blocks in the Z dimension=Machine is too large, it may be at most %d blocks in the Z dimension
+Machine is too small, it must be at least %d blocks in the X dimension=Machine is too small, it must be at least %d blocks in the X dimension
+Machine is too small, it must be at least %d blocks in the Y dimension=Machine is too small, it must be at least %d blocks in the Y dimension
+Machine is too small, it must be at least %d blocks in the Z dimension=Machine is too small, it must be at least %d blocks in the Z dimension
+Part @ %d, %d, %d is incompatible with machines of type %s=Part @ %d, %d, %d is incompatible with machines of type %s
+The controller with the lowest minimum-coord value must consume the one with the higher coords=The controller with the lowest minimum-coord value must consume the one with the higher coords
+%d, %d, %d - Block is not valid for use in the machine's interior=%d, %d, %d - Block is not valid for use in the machine's interior
+Adding a dirty controller to a world that has no registered controllers!=Adding a dirty controller to a world that has no registered controllers!

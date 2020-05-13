@@ -1,9 +1,5 @@
 package erogenousbeef.bigreactors.client.gui;
 
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.inventory.Container;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.ResourceLocation;
 import erogenousbeef.bigreactors.client.ClientProxy;
 import erogenousbeef.bigreactors.common.BigReactors;
 import erogenousbeef.bigreactors.common.multiblock.tileentity.TileEntityReactorAccessPort;
@@ -13,6 +9,11 @@ import erogenousbeef.bigreactors.gui.controls.GuiIconButton;
 import erogenousbeef.bigreactors.net.CommonPacketHandler;
 import erogenousbeef.bigreactors.net.message.ReactorAccessPortChangeDirectionMessage;
 import erogenousbeef.bigreactors.net.message.multiblock.ReactorCommandEjectToPortMessage;
+import net.minecraft.client.gui.GuiButton;
+import net.minecraft.inventory.Container;
+import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
 
 public class GuiReactorAccessPort extends BeefGuiBase {
 	private TileEntityReactorAccessPort _port;
@@ -35,11 +36,11 @@ public class GuiReactorAccessPort extends BeefGuiBase {
 	public void initGui() {
 		super.initGui();
 
-		ejectFuel = new GuiIconButton(2, guiLeft + xSize - 97, guiTop + 53, 18, 18, ClientProxy.GuiIcons.getIcon("fuelEject"), new String[] { EnumChatFormatting.AQUA + "Eject Fuel", "", "Ejects fuel contained in the", "reactor, placing ingots in the", "reactor's access ports.", "", "SHIFT: Dump excess fuel."});
-		ejectWaste = new GuiIconButton(3, guiLeft + xSize - 77, guiTop + 53, 18, 18, ClientProxy.GuiIcons.getIcon("wasteEject"), new String[] { EnumChatFormatting.AQUA + "Eject Waste", "", "Ejects waste contained in the", "reactor, placing ingots in the", "reactor's access ports.", "", "SHIFT: Dump excess waste."});
+		ejectFuel = new GuiIconButton(2, guiLeft + xSize - 97, guiTop + 53, 18, 18, ClientProxy.GuiIcons.getIcon("fuelEject"), new String[] { EnumChatFormatting.AQUA + StatCollector.translateToLocal("Eject_Fuel"), "", StatCollector.translateToLocal("Ejects_fuel_contained_in_the"), StatCollector.translateToLocal("reactor_placing_ingots_in_the"), StatCollector.translateToLocal("reactors_access_ports"), "", StatCollector.translateToLocal("SHIFT_Dump_excess_fuel")});
+		ejectWaste = new GuiIconButton(3, guiLeft + xSize - 77, guiTop + 53, 18, 18, ClientProxy.GuiIcons.getIcon("wasteEject"), new String[] { EnumChatFormatting.AQUA + StatCollector.translateToLocal("Eject_Waste"), "", StatCollector.translateToLocal("Ejects_waste_contained_in_the"), StatCollector.translateToLocal("reactor_placing_ingots_in_the"), StatCollector.translateToLocal("reactors_access_ports"), "", StatCollector.translateToLocal("SHIFT_Dump_excess_waste")});
 		
-		btnInlet = new GuiIconButton(0, guiLeft + xSize - 47, guiTop + 53, 18, 18, ClientProxy.GuiIcons.getIcon("inletOn"), new String[] { EnumChatFormatting.AQUA + "Inlet Mode", "", "Sets the access port to", "inlet mode.", "", "Port WILL accept", "items from pipes/ducts.", "Port WILL NOT eject", "items to pipes/ducts."});
-		btnOutlet = new GuiIconButton(1, guiLeft + xSize - 27, guiTop + 53, 18, 18, ClientProxy.GuiIcons.getIcon("outletOn"), new String[] { EnumChatFormatting.AQUA + "Outlet Mode", "", "Sets the access port to", "outlet mode.", "", "Port WILL NOT accept", "items from pipes/ducts.", "Port WILL eject", "ingots to pipes/ducts."});
+		btnInlet = new GuiIconButton(0, guiLeft + xSize - 47, guiTop + 53, 18, 18, ClientProxy.GuiIcons.getIcon("inletOn"), new String[] { EnumChatFormatting.AQUA + StatCollector.translateToLocal("Inlet_Mode"), "", StatCollector.translateToLocal("Sets_the_access_port_to"), StatCollector.translateToLocal("inlet_mode"), "", StatCollector.translateToLocal("Port_WILL_accept"), StatCollector.translateToLocal("items_from_pipes/ducts"), StatCollector.translateToLocal("Port_WILL_NOT_eject"), StatCollector.translateToLocal("items_to_pipes/ducts")});
+		btnOutlet = new GuiIconButton(1, guiLeft + xSize - 27, guiTop + 53, 18, 18, ClientProxy.GuiIcons.getIcon("outletOn"), new String[] { EnumChatFormatting.AQUA + StatCollector.translateToLocal("Outlet_Mode"), "", StatCollector.translateToLocal("Sets_the_access_port_to"), StatCollector.translateToLocal("outlet_mode"), "", StatCollector.translateToLocal("Port_WILL_NOT_accept"), StatCollector.translateToLocal("items_from_pipes/ducts"), StatCollector.translateToLocal("Port_WILL_eject"), StatCollector.translateToLocal("ingots_to_pipes/ducts")});
 		
 		inventoryLabel = new BeefGuiLabel(this, "Inventory", guiLeft + 8, guiTop + 64);
 		

@@ -18,6 +18,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
 public class ItemBeefDebugTool extends ItemBase {
@@ -31,10 +32,10 @@ public class ItemBeefDebugTool extends ItemBase {
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, EntityPlayer player, List infoList, boolean advancedTooltips) {
 		super.addInformation(stack, player, infoList, advancedTooltips);
-		infoList.add("Rightclick a block to show debug info");
+		infoList.add(StatCollector.translateToLocal("Rightclick a block to show debug info"));
 		infoList.add("");
-		infoList.add(EnumChatFormatting.ITALIC + "Queries on server, by default.");
-		infoList.add(EnumChatFormatting.GREEN + "Shift:" + EnumChatFormatting.GRAY + EnumChatFormatting.ITALIC + " Query on client");
+		infoList.add(EnumChatFormatting.ITALIC + StatCollector.translateToLocal("Queries on server, by default."));
+		infoList.add(EnumChatFormatting.GREEN + StatCollector.translateToLocal("Shift:") + EnumChatFormatting.GRAY + EnumChatFormatting.ITALIC + StatCollector.translateToLocal(" Query on client"));
 	}
 
 	@Override
@@ -51,7 +52,7 @@ public class ItemBeefDebugTool extends ItemBase {
 			String result = ((IBeefDebuggableTile)te).getDebugInfo();
 			if(result != null && !result.isEmpty()) {
 				String[] results = result.split("\n");
-				String initialMessage = String.format("[%s] Beef Debug Tool:", clientOrServer);
+				String initialMessage = String.format(StatCollector.translateToLocal("[%s] Beef Debug Tool:"), clientOrServer);
 				player.addChatMessage(new ChatComponentText(initialMessage));
 				for(String r : results) {
 					player.addChatMessage(new ChatComponentText(r));
@@ -64,17 +65,17 @@ public class ItemBeefDebugTool extends ItemBase {
 		if(b != null) {
 			ItemStack blockStack = new ItemStack(b, 1, world.getBlockMetadata(x,y,z));
 			String oreName = ItemHelper.oreProxy.getOreName(blockStack);
-			player.addChatMessage(new ChatComponentText(String.format("[%s] Canonical ore name for %s: %s", world.isRemote?"CLIENT":"SERVER", b.getUnlocalizedName(), oreName)));
+			player.addChatMessage(new ChatComponentText(String.format(StatCollector.translateToLocal("[%s] Canonical ore name for %s: %s"), world.isRemote?"CLIENT":"SERVER", b.getUnlocalizedName(), oreName)));
 
 			ArrayList<String> allOreNames = OreDictionaryArbiter.getAllOreNames(blockStack);
 			if(allOreNames != null) {
-				player.addChatMessage(new ChatComponentText(String.format("[%s] All ore names (%d):", clientOrServer, allOreNames.size())));
+				player.addChatMessage(new ChatComponentText(String.format(StatCollector.translateToLocal("[%s] All ore names (%d):"), clientOrServer, allOreNames.size())));
 				for(String on : allOreNames) {
 					player.addChatMessage(new ChatComponentText(on));
 				}
 			}
 			else {
-				player.addChatMessage(new ChatComponentText("getAllOreNames returned null"));
+				player.addChatMessage(new ChatComponentText(StatCollector.translateToLocal("getAllOreNames returned null")));
 			}
 		}
 
@@ -83,16 +84,7 @@ public class ItemBeefDebugTool extends ItemBase {
 	}
 
 	@Override
-	public boolean doesSneakBypassUse(World world, int x, int y, int z, EntityPlayer player)
-	{
+	public boolean doesSneakBypassUse(World world, int x, int y, int z, EntityPlayer player){
 		return false;
 	}
-	
-	/*
-	@Override
-	public boolean canHarvestBlock(Block block, ItemStack stack)
-	{
-		return false;
-	}
-	*/
 }

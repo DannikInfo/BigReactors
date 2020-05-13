@@ -8,6 +8,7 @@ public class ModHelperBase {
 	public static boolean useCofh;
 	public static boolean useBuildcraftTools;
 	public static boolean useBuildcraftTransport;
+	public static boolean useIC2;
 	
 	public void register() {}
 	
@@ -16,6 +17,7 @@ public class ModHelperBase {
 		useCofh = Loader.isModLoaded("CoFHCore");
 		useBuildcraftTools = ModAPIManager.INSTANCE.hasAPI("BuildCraftAPI|tools");
 		useBuildcraftTransport = ModAPIManager.INSTANCE.hasAPI("BuildCraftAPI|transport");
+		useIC2 = Loader.isModLoaded("IC2");
 		
 	}
 

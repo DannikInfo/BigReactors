@@ -4,8 +4,13 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.inventory.Container;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
+
+import java.math.BigDecimal;
+
 import erogenousbeef.bigreactors.client.ClientProxy;
 import erogenousbeef.bigreactors.common.BigReactors;
+import erogenousbeef.bigreactors.common.multiblock.MultiblockReactor;
 import erogenousbeef.bigreactors.common.multiblock.MultiblockTurbine;
 import erogenousbeef.bigreactors.common.multiblock.MultiblockTurbine.VentStatus;
 import erogenousbeef.bigreactors.common.multiblock.tileentity.TileEntityTurbinePartBase;
@@ -36,12 +41,12 @@ public class GuiTurbineController extends BeefGuiBase {
 	
 	private BeefGuiIcon energyGeneratedIcon;
 	private BeefGuiLabel energyGeneratedString;
+	private BeefGuiIcon energyGeneratedIcon2;
+	private BeefGuiLabel energyGeneratedString2;
 	
 	private BeefGuiIcon rotorEfficiencyIcon;
 	private BeefGuiLabel rotorEfficiencyString;
 
-	private BeefGuiIcon powerIcon;
-	private BeefGuiPowerBar powerBar;
 	private BeefGuiIcon steamIcon;
 	private BeefGuiFluidBar steamBar;
 	private BeefGuiIcon waterIcon;
@@ -86,51 +91,181 @@ public class GuiTurbineController extends BeefGuiBase {
 		int leftX = guiLeft + 4;
 		int topY = guiTop + 4;
 		
-		titleString = new BeefGuiLabel(this, "Turbine Control", leftX, topY);
+		titleString = new BeefGuiLabel(this, StatCollector.translateToLocal("Turbine Control"), leftX, topY);
 		topY += titleString.getHeight() + 4;
 		
-		speedIcon = new BeefGuiIcon(this, leftX + 1, topY, 16, 16, ClientProxy.GuiIcons.getIcon("rpm"), new String[] { EnumChatFormatting.AQUA + "Rotor Speed", "", "Speed of the rotor in", "revolutions per minute.", "", "Rotors perform best at 900", "or 1800 RPM.", "", "Speeds over 2000PM are overspeed", "and may cause a turbine to", "fail catastrophically." });
+		speedIcon = new BeefGuiIcon(this, leftX + 1, topY, 16, 16, ClientProxy.GuiIcons.getIcon("rpm"), new String[] { 
+				EnumChatFormatting.AQUA + 
+				StatCollector.translateToLocal("Rotor Speed"),
+				"",
+				StatCollector.translateToLocal("Speed of the rotor in"),
+				StatCollector.translateToLocal("revolutions per minute."),
+				"",
+				StatCollector.translateToLocal("Rotors perform best at 900"),
+				StatCollector.translateToLocal("or 1800 RPM."),
+				"",
+				StatCollector.translateToLocal("Speeds over 2000PM are overspeed"),
+				StatCollector.translateToLocal("and may cause a turbine to"),
+				StatCollector.translateToLocal("fail catastrophically.") });
 		speedString = new BeefGuiLabel(this, "", leftX + 22, topY + 4);
 		topY += speedIcon.getHeight() + 4;
 
-		energyGeneratedIcon = new BeefGuiIcon(this, leftX+1, topY, 16, 16, ClientProxy.GuiIcons.getIcon("energyOutput"), new String[] { EnumChatFormatting.AQUA + "Energy Output", "", "Turbines generate energy via", "metal induction coils placed", "around a spinning rotor.", "More, or higher-quality, coils", "generate energy faster."});
+		energyGeneratedIcon = new BeefGuiIcon(this, leftX+1, topY, 16, 16, ClientProxy.GuiIcons.getIcon("energyOutput"), new String[] {
+				EnumChatFormatting.AQUA + 
+				StatCollector.translateToLocal("Energy Output"),
+				"", 
+				StatCollector.translateToLocal("Turbines generate energy via"),
+				StatCollector.translateToLocal("metal induction coils placed"),
+				StatCollector.translateToLocal("around a spinning rotor."), 
+				StatCollector.translateToLocal("More, or higher-quality, coils"),
+				StatCollector.translateToLocal("generate energy faster.")});
 		energyGeneratedString = new BeefGuiLabel(this, "", leftX + 22, topY + 4);
-		topY += energyGeneratedIcon.getHeight() + 4;
+		if(turbine.getPTEUCount() > 0 || (turbine.getPTRFCount() == 0 && turbine.getPTEUCount() == 0))
+			topY += energyGeneratedIcon.getHeight() + 4;
+		energyGeneratedIcon2 = new BeefGuiIcon(this, leftX+1, topY, 16, 16, ClientProxy.GuiIcons.getIcon("energyOutput"), new String[] {
+				EnumChatFormatting.AQUA + 
+				StatCollector.translateToLocal("Energy Output"),
+				"", 
+				StatCollector.translateToLocal("Turbines generate energy via"),
+				StatCollector.translateToLocal("metal induction coils placed"),
+				StatCollector.translateToLocal("around a spinning rotor."), 
+				StatCollector.translateToLocal("More, or higher-quality, coils"),
+				StatCollector.translateToLocal("generate energy faster.")});
+		energyGeneratedString2 = new BeefGuiLabel(this, "", leftX + 22, topY + 4);
+		if(turbine.getPTRFCount() > 0)
+			topY += energyGeneratedIcon.getHeight() + 4;
 		
-		rotorEfficiencyIcon = new BeefGuiIcon(this, leftX + 1, topY, 16, 16, ClientProxy.GuiIcons.getIcon("rotorEfficiency"), new String[] { EnumChatFormatting.AQUA + "Rotor Efficiency", "", "Rotor blades can only fully", String.format("capture energy from %d mB of", MultiblockTurbine.inputFluidPerBlade), "fluid per blade.", "", "Efficiency drops if the flow", "of input fluid rises past", "capacity."});
+		rotorEfficiencyIcon = new BeefGuiIcon(this, leftX + 1, topY, 16, 16, ClientProxy.GuiIcons.getIcon("rotorEfficiency"), new String[] {
+				EnumChatFormatting.AQUA + 
+				StatCollector.translateToLocal("Rotor Efficiency"),
+				"",
+				StatCollector.translateToLocal("Rotor blades can only fully"),
+				String.format(StatCollector.translateToLocal("capture energy from %d mB of"),MultiblockTurbine.inputFluidPerBlade), 
+				StatCollector.translateToLocal("fluid per blade."),
+				"",
+				StatCollector.translateToLocal("Efficiency drops if the flow"),
+				StatCollector.translateToLocal("of input fluid rises past"),
+				StatCollector.translateToLocal("capacity.")});
 		rotorEfficiencyString = new BeefGuiLabel(this, "", leftX + 22, topY + 4);
 		topY += rotorEfficiencyIcon.getHeight() + 4;
 
-		statusString = new BeefGuiLabel(this, "", leftX, topY);
+		statusString = new BeefGuiLabel(this, "", leftX, guiTop + 94);
 		topY += statusString.getHeight() + 4;
 		
-		powerIcon = new BeefGuiIcon(this, guiLeft + 153, guiTop + 4, 16, 16, ClientProxy.GuiIcons.getIcon("energyStored"), new String[] { EnumChatFormatting.AQUA + "Energy Storage" });
-		powerBar = new BeefGuiPowerBar(this, guiLeft + 152, guiTop + 22, this.turbine);
-		
-		steamIcon = new BeefGuiIcon(this, guiLeft + 113, guiTop + 4, 16, 16, ClientProxy.GuiIcons.getIcon("hotFluidIn"), new String[] { EnumChatFormatting.AQUA + "Intake Fluid Tank" });
+		steamIcon = new BeefGuiIcon(this, guiLeft + 113, guiTop + 4, 16, 16, ClientProxy.GuiIcons.getIcon("hotFluidIn"), new String[] { EnumChatFormatting.AQUA + StatCollector.translateToLocal("Intake Fluid Tank") });
 		steamBar = new BeefGuiFluidBar(this, guiLeft + 112, guiTop + 22, turbine, MultiblockTurbine.TANK_INPUT);
 
-		waterIcon = new BeefGuiIcon(this, guiLeft + 133, guiTop + 4, 16, 16, ClientProxy.GuiIcons.getIcon("coolantOut"), new String[] { EnumChatFormatting.AQUA + "Exhaust Fluid Tank" });
+		waterIcon = new BeefGuiIcon(this, guiLeft + 133, guiTop + 4, 16, 16, ClientProxy.GuiIcons.getIcon("coolantOut"), new String[] { EnumChatFormatting.AQUA + StatCollector.translateToLocal("Exhaust Fluid Tank") });
 		waterBar = new BeefGuiFluidBar(this, guiLeft + 132, guiTop + 22, turbine, MultiblockTurbine.TANK_OUTPUT);
 
-		rpmIcon = new BeefGuiIcon(this, guiLeft + 93, guiTop + 4, 16, 16, ClientProxy.GuiIcons.getIcon("rpm"), new String[] { EnumChatFormatting.AQUA + "Rotor Speed" });
-		rpmBar = new BeefGuiRpmBar(this, guiLeft + 92, guiTop + 22, turbine, "Rotor Speed", new String[] {"Rotors perform best at", "900 or 1800 RPM.", "", "Rotors kept overspeed for too", "long may fail.", "", "Catastrophically."});
+		rpmIcon = new BeefGuiIcon(this, guiLeft + 93, guiTop + 4, 16, 16, ClientProxy.GuiIcons.getIcon("rpm"), new String[] { EnumChatFormatting.AQUA + StatCollector.translateToLocal("Rotor Speed") });
+		rpmBar = new BeefGuiRpmBar(this, guiLeft + 92, guiTop + 22, turbine, StatCollector.translateToLocal("Rotor Speed"), 
+				new String[] {
+						StatCollector.translateToLocal("Rotors perform best at"),
+						StatCollector.translateToLocal("900 or 1800 RPM."),
+						"",
+						StatCollector.translateToLocal("Rotors kept overspeed for too"),
+						StatCollector.translateToLocal("long may fail."),
+						"",
+						StatCollector.translateToLocal("Catastrophically.")});
 	
-		governorIcon = new BeefGuiIcon(this, guiLeft + 102, guiTop + 107, 16, 16, ClientProxy.GuiIcons.getIcon("flowRate"), new String[] { EnumChatFormatting.AQUA + "Flow Rate Governor", "", "Controls the maximum rate at", "which hot fluids are drawn", "from the turbine's intake tank", "and passed over the turbines.", "", "Effectively, the max rate at which", "the turbine will process fluids."});
+		governorIcon = new BeefGuiIcon(this, guiLeft + 102, guiTop + 107, 16, 16, ClientProxy.GuiIcons.getIcon("flowRate"), new String[] { 
+				EnumChatFormatting.AQUA + 
+				StatCollector.translateToLocal("Flow Rate Governor"),
+				"",
+				StatCollector.translateToLocal("Controls the maximum rate at"),
+				StatCollector.translateToLocal("which hot fluids are drawn"),
+				StatCollector.translateToLocal("from the turbine's intake tank"),
+				StatCollector.translateToLocal("and passed over the turbines."),
+				"",
+				StatCollector.translateToLocal("Effectively, the max rate at which"),
+				StatCollector.translateToLocal("the turbine will process fluids.")});
 		governorString = new BeefGuiLabel(this, "", guiLeft + 122, guiTop + 112);
-		btnGovernorUp   = new GuiIconButton(2, guiLeft + 120, guiTop + 125, 18, 18, ClientProxy.GuiIcons.getIcon("upArrow"),   new String[] { EnumChatFormatting.AQUA + "Increase Max Flow Rate", "", "Higher flow rates will", "increase rotor speed.", "", "SHIFT: +10 mB", "CTRL: +100mB", "CTRL+SHIFT: +1000mB"});
-		btnGovernorDown = new GuiIconButton(3, guiLeft + 140, guiTop + 125, 18, 18, ClientProxy.GuiIcons.getIcon("downArrow"), new String[] { EnumChatFormatting.AQUA + "Decrease Max Flow Rate", "", "Lower flow rates will", "decrease rotor speed.",  "", "SHIFT: -10 mB", "CTRL: -100mB", "CTRL+SHIFT: -1000mB"});
+		btnGovernorUp   = new GuiIconButton(2, guiLeft + 120, guiTop + 125, 18, 18, ClientProxy.GuiIcons.getIcon("upArrow"),   new String[] { 
+				EnumChatFormatting.AQUA + 
+				StatCollector.translateToLocal("Increase Max Flow Rate"),
+				"",
+				StatCollector.translateToLocal("Higher flow rates will"),
+				StatCollector.translateToLocal("increase rotor speed."),
+				"",
+				StatCollector.translateToLocal("SHIFT: +10 mB"),
+				StatCollector.translateToLocal("CTRL: +100mB"),
+				StatCollector.translateToLocal("CTRL+SHIFT: +1000mB")});
+		btnGovernorDown = new GuiIconButton(3, guiLeft + 140, guiTop + 125, 18, 18, ClientProxy.GuiIcons.getIcon("downArrow"), new String[] { 
+				EnumChatFormatting.AQUA + 
+				StatCollector.translateToLocal("Decrease Max Flow Rate"),
+				"",
+				StatCollector.translateToLocal("Lower flow rates will"),
+				StatCollector.translateToLocal("decrease rotor speed."),
+				"",
+				StatCollector.translateToLocal("SHIFT: -10 mB"),
+				StatCollector.translateToLocal("CTRL: -100mB"),
+				StatCollector.translateToLocal("CTRL+SHIFT: -1000mB")});
 
-		inductorIcon = new BeefGuiIcon(this, leftX, guiTop + 105, 16, 16, ClientProxy.GuiIcons.getIcon("coil"), new String[] { EnumChatFormatting.AQUA + "Induction Coils", "", "Metal coils inside the turbine", "extract energy from the rotor", "and convert it into RF.", "", "These controls engage/disengage", "the coils."});
-		btnInductorOn = new GuiIconButton(7, guiLeft + 24, guiTop + 104, 18, 18, ClientProxy.GuiIcons.getIcon("On_off"), new String[] { EnumChatFormatting.AQUA + "Engage Coils", "", "Engages the induction coils.", "Energy will be extracted from", "the rotor and converted to RF.", "", "Energy extraction exerts drag", "on the rotor, slowing it down." });
-		btnInductorOff = new GuiIconButton(8, guiLeft + 44, guiTop + 104, 18, 18, ClientProxy.GuiIcons.getIcon("Off_off"), new String[] { EnumChatFormatting.AQUA + "Disengage Coils", "", "Disengages the induction coils.", "Energy will NOT be extracted from", "the rotor, allowing it to", "spin faster." });
+		inductorIcon = new BeefGuiIcon(this, leftX, guiTop + 105, 16, 16, ClientProxy.GuiIcons.getIcon("coil"), new String[] { 
+				EnumChatFormatting.AQUA + 
+				StatCollector.translateToLocal("Induction Coils"),
+				"",
+				StatCollector.translateToLocal("Metal coils inside the turbine"),
+				StatCollector.translateToLocal("extract energy from the rotor"),
+				StatCollector.translateToLocal("and convert it into EU/RF."),
+				"",
+				StatCollector.translateToLocal("These controls engage/disengage"),
+				StatCollector.translateToLocal("the coils.")});
+		btnInductorOn = new GuiIconButton(7, guiLeft + 24, guiTop + 104, 18, 18, ClientProxy.GuiIcons.getIcon("On_off"), new String[] { 
+				EnumChatFormatting.AQUA + 
+				StatCollector.translateToLocal("Engage Coils"),
+				"",
+				StatCollector.translateToLocal("Engages the induction coils."),
+				StatCollector.translateToLocal("Energy will be extracted from"),
+				StatCollector.translateToLocal("the rotor and converted to RF."),
+				"",
+				StatCollector.translateToLocal("Energy extraction exerts drag"),
+				StatCollector.translateToLocal("on the rotor, slowing it down.") });
+		btnInductorOff = new GuiIconButton(8, guiLeft + 44, guiTop + 104, 18, 18, ClientProxy.GuiIcons.getIcon("Off_off"), new String[] { 
+				EnumChatFormatting.AQUA + 
+				StatCollector.translateToLocal("Disengage Coils"),
+				"",
+				StatCollector.translateToLocal("Disengages the induction coils."),
+				StatCollector.translateToLocal("Energy will NOT be extracted from"),
+				StatCollector.translateToLocal("the rotor, allowing it to"),
+				StatCollector.translateToLocal("spin faster.") });
 		
-		btnActivate = new GuiIconButton(0, guiLeft + 4, guiTop + 144, 18, 18, ClientProxy.GuiIcons.getIcon("On_off"), new String[] { EnumChatFormatting.AQUA + "Activate Turbine", "", "Enables flow of intake fluid to rotor.", "Fluid flow will spin up the rotor." });
-		btnDeactivate = new GuiIconButton(1, guiLeft + 24, guiTop + 144, 18, 18, ClientProxy.GuiIcons.getIcon("Off_off"), new String[] { EnumChatFormatting.AQUA + "Deactivate Turbine", "", "Disables flow of intake fluid to rotor.", "The rotor will spin down." });
+		btnActivate = new GuiIconButton(0, guiLeft + 4, guiTop + 144, 18, 18, ClientProxy.GuiIcons.getIcon("On_off"), new String[] {
+				EnumChatFormatting.AQUA + 
+				StatCollector.translateToLocal("Activate Turbine"),
+				"", 
+				StatCollector.translateToLocal("Enables flow of intake fluid to rotor."),
+				StatCollector.translateToLocal("Fluid flow will spin up the rotor.") });
+		btnDeactivate = new GuiIconButton(1, guiLeft + 24, guiTop + 144, 18, 18, ClientProxy.GuiIcons.getIcon("Off_off"), new String[] { 
+				EnumChatFormatting.AQUA + 
+				StatCollector.translateToLocal("Deactivate Turbine"),
+				"",
+				StatCollector.translateToLocal("Disables flow of intake fluid to rotor."),
+				StatCollector.translateToLocal("The rotor will spin down.") });
 		
-		btnVentAll = new GuiIconButton(4, guiLeft + 4, guiTop + 124, 18, 18, ClientProxy.GuiIcons.getIcon("ventAllOff"), new String[] { EnumChatFormatting.AQUA + "Vent: All Exhaust", "", "Dump all exhaust fluids.", "The exhaust fluid tank", "will not fill."});
-		btnVentOverflow = new GuiIconButton(5, guiLeft + 24, guiTop + 124, 18, 18, ClientProxy.GuiIcons.getIcon("ventOverflowOff"), new String[] { EnumChatFormatting.AQUA + "Vent: Overflow Only", "", "Dump excess exhaust fluids.", "Excess fluids will be lost", "if exhaust fluid tank is full."});
-		btnVentNone = new GuiIconButton(6, guiLeft + 44, guiTop + 124, 18, 18, ClientProxy.GuiIcons.getIcon("ventNoneOff"), new String[] { EnumChatFormatting.AQUA + "Vent: Closed", "", "Preserve all exhaust fluids.", "Turbine will slow or halt", "fluid intake if exhaust", "fluid tank is full."});
+		btnVentAll = new GuiIconButton(4, guiLeft + 4, guiTop + 124, 18, 18, ClientProxy.GuiIcons.getIcon("ventAllOff"), new String[] {
+				EnumChatFormatting.AQUA + 
+				StatCollector.translateToLocal("Vent: All Exhaust"),
+				"",
+				StatCollector.translateToLocal("Dump all exhaust fluids."),
+				StatCollector.translateToLocal("The exhaust fluid tank"),
+				StatCollector.translateToLocal("will not fill.")});
+		btnVentOverflow = new GuiIconButton(5, guiLeft + 24, guiTop + 124, 18, 18, ClientProxy.GuiIcons.getIcon("ventOverflowOff"), new String[] {
+				EnumChatFormatting.AQUA + 
+				StatCollector.translateToLocal("Vent: Overflow Only"),
+				"",
+				StatCollector.translateToLocal("Dump excess exhaust fluids."),
+				StatCollector.translateToLocal("Excess fluids will be lost"),
+				StatCollector.translateToLocal("if exhaust fluid tank is full.")});
+		btnVentNone = new GuiIconButton(6, guiLeft + 44, guiTop + 124, 18, 18, ClientProxy.GuiIcons.getIcon("ventNoneOff"), new String[] {
+				EnumChatFormatting.AQUA + 
+				StatCollector.translateToLocal("Vent: Closed"),
+				"",
+				StatCollector.translateToLocal("Preserve all exhaust fluids."),
+				StatCollector.translateToLocal("Turbine will slow or halt"),
+				StatCollector.translateToLocal("fluid intake if exhaust"),
+				StatCollector.translateToLocal("fluid tank is full.")});
 		
 		registerControl(titleString);
 		registerControl(statusString);
@@ -138,12 +273,12 @@ public class GuiTurbineController extends BeefGuiBase {
 		registerControl(speedString);
 		registerControl(energyGeneratedIcon);
 		registerControl(energyGeneratedString);
+		registerControl(energyGeneratedIcon2);
+		registerControl(energyGeneratedString2);
 		registerControl(rotorEfficiencyIcon);
 		registerControl(rotorEfficiencyString);
-		registerControl(powerBar);
 		registerControl(steamBar);
 		registerControl(waterBar);
-		registerControl(powerIcon);
 		registerControl(steamIcon);
 		registerControl(waterIcon);
 		registerControl(rpmIcon);
@@ -166,19 +301,54 @@ public class GuiTurbineController extends BeefGuiBase {
 	}
 
 	private void updateStrings() {
+		if(turbine.getPTRFCount() == 0 && turbine.getPTEUCount() == 0) {
+			energyGeneratedIcon.visible = true;
+			energyGeneratedString.visible = true;
+		}else {
+			energyGeneratedIcon.visible = false;
+			energyGeneratedString.visible = false;
+		}
+		if(turbine.getPTRFCount() == 0){
+			energyGeneratedIcon2.visible = false;
+			energyGeneratedString2.visible = false;
+		}
+		if(turbine.getPTRFCount() > 0) {
+			energyGeneratedIcon2.visible = true;
+			energyGeneratedString2.visible = true;
+		}
+		if(turbine.getPTEUCount() > 0) {
+			energyGeneratedIcon.visible = true;
+			energyGeneratedString.visible = true;
+		}
+		
 		if(turbine.getActive()) {
-			statusString.setLabelText("Status: " + EnumChatFormatting.DARK_GREEN + "Active");
+			statusString.setLabelText(StatCollector.translateToLocal("Status: ") + EnumChatFormatting.DARK_GREEN + StatCollector.translateToLocal("Active"));
 			btnActivate.setIcon(ClientProxy.GuiIcons.getIcon(BeefGuiIconManager.ON_ON));
 			btnDeactivate.setIcon(ClientProxy.GuiIcons.getIcon(BeefGuiIconManager.OFF_OFF));
 		}
 		else {
-			statusString.setLabelText("Status: " + EnumChatFormatting.DARK_RED + "Inactive");
+			statusString.setLabelText(StatCollector.translateToLocal("Status: ") + EnumChatFormatting.DARK_RED + StatCollector.translateToLocal("Inactive"));
 			btnActivate.setIcon(ClientProxy.GuiIcons.getIcon(BeefGuiIconManager.ON_OFF));
 			btnDeactivate.setIcon(ClientProxy.GuiIcons.getIcon(BeefGuiIconManager.OFF_ON));
 		}
 		
 		speedString.setLabelText(String.format("%.1f RPM", turbine.getRotorSpeed()));
-		energyGeneratedString.setLabelText(String.format("%.0f RF/t", turbine.getEnergyGeneratedLastTick()));
+		
+		if(turbine.getPTRFCount() == 0 && turbine.getPTEUCount() == 0)
+			energyGeneratedString.setLabelText(String.format("%.0f EU/t", turbine.getEnergyGeneratedLastTick()*BigReactors.RFtoEU));
+		if(turbine.getPTEUCount() > 0)
+			energyGeneratedString.setLabelText(String.format("%.0f EU/t", (turbine.getEnergyGeneratedLastTick()*BigReactors.RFtoEU)/turbine.getAttachedPowerTapsCount()*turbine.getPTEUCount()));
+		if(turbine.getPTRFCount() > 0)
+			energyGeneratedString2.setLabelText(String.format("%.0f RF/t", turbine.getEnergyGeneratedLastTick()/turbine.getAttachedPowerTapsCount()*turbine.getPTRFCount()));
+		
+		if(turbine.getPTEUCount() > 0)
+			energyGeneratedString.setLabelTooltip(String.format("%.2f " + StatCollector.translateToLocal("EU per tick"), ((turbine.getEnergyGeneratedLastTick()*BigReactors.RFtoEU)/turbine.getAttachedPowerTapsCount())*turbine.getPTEUCount()));
+		else if(turbine.getPTRFCount() == 0 && turbine.getPTEUCount() == 0)
+			energyGeneratedString.setLabelTooltip(String.format("%.2f " + StatCollector.translateToLocal("EU lost per tick"), turbine.getEnergyGeneratedLastTick()*BigReactors.RFtoEU));
+		
+		energyGeneratedString2.setLabelTooltip(String.format("%.2f " + StatCollector.translateToLocal("RF per tick"), (turbine.getEnergyGeneratedLastTick()/turbine.getAttachedPowerTapsCount())*turbine.getPTRFCount()));
+		
+		
 		governorString.setLabelText(String.format("%d mB/t", turbine.getMaxIntakeRate()));
 		
 		if(turbine.getActive()) {
@@ -193,10 +363,10 @@ public class GuiTurbineController extends BeefGuiBase {
 			int fluidLastTick = turbine.getFluidConsumedLastTick();
 			int neededBlades = fluidLastTick / MultiblockTurbine.inputFluidPerBlade;
 			
-			rotorEfficiencyString.setLabelTooltip(String.format("%d / %d blades", numBlades, neededBlades));
+			rotorEfficiencyString.setLabelTooltip(String.format(StatCollector.translateToLocal("%d / %d blades"), numBlades, neededBlades));
 		}
 		else {
-			rotorEfficiencyString.setLabelText("Unknown");
+			rotorEfficiencyString.setLabelText(StatCollector.translateToLocal("Unknown"));
 		}
 		
 		switch(turbine.getVentSetting()) {

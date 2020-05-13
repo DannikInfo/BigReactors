@@ -1,11 +1,5 @@
 package erogenousbeef.bigreactors.client.gui;
 
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiTextField;
-import net.minecraft.inventory.Container;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.ResourceLocation;
-
 import org.lwjgl.input.Keyboard;
 
 import erogenousbeef.bigreactors.client.ClientProxy;
@@ -18,6 +12,12 @@ import erogenousbeef.bigreactors.gui.controls.GuiIconButton;
 import erogenousbeef.bigreactors.net.CommonPacketHandler;
 import erogenousbeef.bigreactors.net.message.ControlRodChangeInsertionMessage;
 import erogenousbeef.bigreactors.net.message.ControlRodChangeNameMessage;
+import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.GuiTextField;
+import net.minecraft.inventory.Container;
+import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
 
 public class GuiReactorControlRod extends BeefGuiBase {
 
@@ -58,10 +58,10 @@ public class GuiReactorControlRod extends BeefGuiBase {
 		
 		Keyboard.enableRepeatEvents(true);
 		
-		titleString = new BeefGuiLabel(this, "Reactor Control Rod", leftX, topY);
+		titleString = new BeefGuiLabel(this, StatCollector.translateToLocal("Reactor_Control_Rod"), leftX, topY);
 		topY += titleString.getHeight() + 8;
 		
-		rodNameLabel = new BeefGuiLabel(this, "Name:", leftX, topY + 6);
+		rodNameLabel = new BeefGuiLabel(this, StatCollector.translateToLocal("Name:"), leftX, topY + 6);
 		
 		rodName = new GuiTextField(fontRendererObj, leftX + 4 + rodNameLabel.getWidth(), topY, 100, 20);
 		rodName.setCanLoseFocus(true);
@@ -69,19 +69,19 @@ public class GuiReactorControlRod extends BeefGuiBase {
 		rodName.setText(entity.getName());
 		rodName.setEnabled(true);
 		
-		setNameBtn = new GuiButton(2, guiLeft + 140, topY, 30, 20, "Set");
+		setNameBtn = new GuiButton(2, guiLeft + 140, topY, 30, 20, StatCollector.translateToLocal("Set"));
 		setNameBtn.enabled = false;
 		topY += 28;
 		
-		rodInsertIcon = new BeefGuiIcon(this, leftX+42, topY, 16, 16, ClientProxy.GuiIcons.getIcon("controlRod"), new String[] { EnumChatFormatting.AQUA + "Rod Insertion", "", "Change the control rod's insertion.", "Higher insertion slows reaction rate.", "", "Lower reaction rates reduce heat,", "energy, radiation output, and", "fuel consumption." });
+		rodInsertIcon = new BeefGuiIcon(this, leftX+42, topY, 16, 16, ClientProxy.GuiIcons.getIcon("controlRod"), new String[] { EnumChatFormatting.AQUA + StatCollector.translateToLocal("Rod_Insertion"), "", StatCollector.translateToLocal("Change_the_control_rods_insertion"), StatCollector.translateToLocal("Higher_insertion_slows_reaction_rate"), "", StatCollector.translateToLocal("Lower_reaction_rates_reduce_heat"), StatCollector.translateToLocal("energy_radiation_output_and"), StatCollector.translateToLocal("fuel_consumption") });
 		insertionLabel = new BeefGuiLabel(this, "", leftX+62, topY+5);
 		topY += 20;
 		insertionBar = new BeefGuiInsertionProgressBar(this, leftX+40, topY);
 
 		topY += 12;
-		rodRetractBtn = new GuiIconButton(0, leftX+70, topY, 20, 20, ClientProxy.GuiIcons.getIcon("upArrow"), new String[] { EnumChatFormatting.AQUA + "Insert Rod", "Increase insertion by 10.", "", "Shift: +100", "Alt: +5", "Shift+Alt: +1", "", "Ctrl: Change ALL Rods" });
+		rodRetractBtn = new GuiIconButton(0, leftX+70, topY, 20, 20, ClientProxy.GuiIcons.getIcon("upArrow"), new String[] { EnumChatFormatting.AQUA + StatCollector.translateToLocal("Insert_Rod"), StatCollector.translateToLocal("Increase_insertion_by_10"), "", StatCollector.translateToLocal("Shift_P100"), StatCollector.translateToLocal("Alt_P5"), StatCollector.translateToLocal("ShiftAlt_M1"), "", StatCollector.translateToLocal("Ctrl_Change_ALL_Rods") });
 		topY += 20;
-		rodInsertBtn = new GuiIconButton(1, leftX+70, topY, 20, 20, ClientProxy.GuiIcons.getIcon("downArrow"), new String[] { EnumChatFormatting.AQUA + "Retract Rod", "Reduce insertion by 10.", "", "Shift: -100", "Alt: -5", "Shift+Alt: -1", "", "Ctrl: Change ALL Rods" });
+		rodInsertBtn = new GuiIconButton(1, leftX+70, topY, 20, 20, ClientProxy.GuiIcons.getIcon("downArrow"), new String[] { EnumChatFormatting.AQUA + StatCollector.translateToLocal("Retract_Rod"), StatCollector.translateToLocal("Reduce_insertion_by_10"), "", StatCollector.translateToLocal("Shift_M100"), StatCollector.translateToLocal("Alt_M5"), StatCollector.translateToLocal("ShiftAlt_M1"), "", StatCollector.translateToLocal("Ctrl_Change_ALL_Rods") });
 		topY += 32;
 
 		registerControl(insertionBar);

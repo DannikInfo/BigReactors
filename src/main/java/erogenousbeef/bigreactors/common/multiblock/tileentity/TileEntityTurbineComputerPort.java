@@ -95,8 +95,6 @@ public class TileEntityTurbineComputerPort extends
 			return new Object[] { turbine.getActive() };
 		case getEnergyProducedLastTick:
 			return new Object[] { turbine.getEnergyGeneratedLastTick() };
-		case getEnergyStored:
-			return new Object[] { turbine.getEnergyStored() };
 		case getFluidAmountMax:
 			return new Object[] { MultiblockTurbine.TANK_SIZE };
 		case getFluidFlowRate:

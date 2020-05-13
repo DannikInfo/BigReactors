@@ -1,6 +1,7 @@
 package erogenousbeef.bigreactors.common.multiblock.tileentity;
 
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.util.StatCollector;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import erogenousbeef.bigreactors.common.BRLog;
@@ -113,7 +114,7 @@ public abstract class TileEntityTurbinePartBase extends RectangularMultiblockTil
 		StringBuilder sb = new StringBuilder();
 		sb.append(getClass().toString()).append("\n");
 		if(t == null) {
-			sb.append("Not attached to controller!");
+			sb.append(StatCollector.translateToLocal("Not attached to controller!"));
 			return sb.toString();
 		}
 		sb.append(t.getDebugInfo());

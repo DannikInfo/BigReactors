@@ -27,7 +27,7 @@ import erogenousbeef.core.multiblock.MultiblockEventHandler;
 public class BRLoader {
 
 	public static final String MOD_ID = BigReactors.MODID;
-    public static final String DEPENDENCIES = "required-after:Forge@[10.13.2.1291,);required-after:CoFHCore;after:ThermalExpansion";
+    public static final String DEPENDENCIES = "required-after:Forge@[10.13.2.1291,);required-after:CoFHCore;required-after:IC2";
 	
 	@Instance(MOD_ID)
 	public static BRLoader instance;
@@ -48,7 +48,6 @@ public class BRLoader {
 		BigReactors.registerFuelRods(0, true);
 		BigReactors.registerReactorPartBlocks(0, true);
 		BigReactors.registerTurbineParts();
-		BigReactors.registerDevices(0,  true);
 		BigReactors.registerFluids(0,  true);
 		BigReactors.registerCreativeParts(0, true);
 		BigReactors.registerItems();

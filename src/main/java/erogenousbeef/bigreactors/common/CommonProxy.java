@@ -42,7 +42,7 @@ public class CommonProxy {
 		sendInterModAPIMessages();
 
 		if(Loader.isModLoaded("VersionChecker")) {
-			FMLInterModComms.sendRuntimeMessage(BRLoader.MOD_ID, "VersionChecker", "addVersionCheck", "http://big-reactors.com/version.json");
+			FMLInterModComms.sendRuntimeMessage(BRLoader.MOD_ID, "VersionChecker", "addVersionCheck", "https://raw.githubusercontent.com/DannikInfo/BigReactors/master/version.json");
 		}
 	}
 

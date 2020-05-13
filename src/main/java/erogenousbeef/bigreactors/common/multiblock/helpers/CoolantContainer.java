@@ -1,6 +1,7 @@
 package erogenousbeef.bigreactors.common.multiblock.helpers;
 
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.StatCollector;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
@@ -156,7 +157,7 @@ public class CoolantContainer extends FluidHelper {
 	}
 	
 	private float getBoilingPoint(Fluid fluid) {
-		if(fluid == null) { throw new IllegalArgumentException("Cannot pass a null fluid to getBoilingPoint"); } // just in case
+		if(fluid == null) { throw new IllegalArgumentException(StatCollector.translateToLocal("Cannot pass a null fluid to getBoilingPoint")); } // just in case
 
 		// TODO: Lookup
 		return 100f;
@@ -167,14 +168,14 @@ public class CoolantContainer extends FluidHelper {
 	 * @return
 	 */
 	private float getHeatOfVaporization(Fluid fluid) {
-		if(fluid == null) { throw new IllegalArgumentException("Cannot pass a null fluid to getHeatOfVaporization"); } // just in case
+		if(fluid == null) { throw new IllegalArgumentException(StatCollector.translateToLocal("Cannot pass a null fluid to getHeatOfVaporization")); } // just in case
 
 		// TODO: Make a registry for this, do a lookup
 		return 4f; // TE converts 1mB steam into 2 RF of work in a steam turbine, so we assume it's 50% efficient.
 	}
 	
 	private Fluid getVaporizedCoolantFluid(Fluid fluid) {
-		if(fluid == null) { throw new IllegalArgumentException("Cannot pass a null fluid to getVaporizedCoolantFluid"); } // just in case
+		if(fluid == null) { throw new IllegalArgumentException(StatCollector.translateToLocal("Cannot pass a null fluid to getVaporizedCoolantFluid")); } // just in case
 
 		return BigReactors.fluidSteam;
 	}

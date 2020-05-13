@@ -29,7 +29,6 @@ usernamecache.json
 *.command
 
 # External APIs
-/lib
 
 # BeefCore, when it's copied into the source tree
 /src/main/java/erogenousbeef/core

@@ -4,10 +4,6 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.inventory.Container;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ResourceLocation;
 import erogenousbeef.bigreactors.common.BigReactors;
 import erogenousbeef.bigreactors.common.multiblock.block.BlockReactorPart;
 import erogenousbeef.bigreactors.common.multiblock.tileentity.TileEntityReactorControlRod;
@@ -23,6 +19,11 @@ import erogenousbeef.bigreactors.net.CommonPacketHandler;
 import erogenousbeef.bigreactors.net.helpers.RedNetChange;
 import erogenousbeef.bigreactors.net.message.ReactorRedNetPortChangeMessage;
 import erogenousbeef.core.common.CoordTriplet;
+import net.minecraft.client.gui.GuiButton;
+import net.minecraft.inventory.Container;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
 
 public class GuiReactorRedNetPort extends BeefGuiBase {
 
@@ -48,15 +49,15 @@ public class GuiReactorRedNetPort extends BeefGuiBase {
 	};
 	
 	public static final String[] grabbableTooltips = {
-		"Input: Toggle reactor on/off",
-		"Input: Change control rod insertion",
-		"Input: Eject Waste",
-		"Output: Fuel Temp (C)",
-		"Output: Casing Temp (C)",
-		"Output: Fuel mix (% fuel, 0-100)",
-		"Output: Fuel amount",
-		"Output: Waste amount",
-		"Output: Energy amount (%)"
+		StatCollector.translateToLocal("Input_Toggle_reactor_on/off"),
+		StatCollector.translateToLocal("Input_Change_control_rod_insertion"),
+		StatCollector.translateToLocal("Input_Eject_Waste"),
+		StatCollector.translateToLocal("Output_Fuel_Temp"),
+		StatCollector.translateToLocal("Output_Casing_Temp"),
+		StatCollector.translateToLocal("Output_Fuel_mix"),
+		StatCollector.translateToLocal("Output_Fuel_amount"),
+		StatCollector.translateToLocal("Output_Waste_amount"),
+		StatCollector.translateToLocal("Output_Energy_amount")
 	};
 	
 	BeefGuiRedNetChannelSelector[] channelSelectors = new BeefGuiRedNetChannelSelector[numChannels];
@@ -88,8 +89,8 @@ public class GuiReactorRedNetPort extends BeefGuiBase {
 		int leftX = guiLeft + 4;
 		int topY = guiTop + 4;
 		
-		titleString = new BeefGuiLabel(this, "Reactor RedNet Port", leftX+2, topY+2);
-		settingsString = new BeefGuiLabel(this, "Settings", leftX+154, topY+2);
+		titleString = new BeefGuiLabel(this, StatCollector.translateToLocal("tile.blockReactorPart.6.name"), leftX+2, topY+2);
+		settingsString = new BeefGuiLabel(this, StatCollector.translateToLocal("Settings"), leftX+154, topY+2);
 		subSettingString = new BeefGuiLabel(this, "", leftX+154, topY+80);
 		subSettingValueString = new BeefGuiLabel(this, "", leftX+154, topY+94);
 
@@ -139,7 +140,7 @@ public class GuiReactorRedNetPort extends BeefGuiBase {
 		registerControl(subSettingString);
 		registerControl(subSettingValueString);
 		
-		commitBtn = new GuiButton(0, guiLeft + 190, guiTop + 190, 56, 20, "Commit");
+		commitBtn = new GuiButton(0, guiLeft + 190, guiTop + 190, 56, 20, StatCollector.translateToLocal("Commit"));
 		commitBtn.enabled = false;
 		
 		this.subSettingForwardBtn 	= new GuiButton(1, guiLeft + 178, guiTop + 114, 20, 20, ">");
@@ -280,17 +281,17 @@ public class GuiReactorRedNetPort extends BeefGuiBase {
 		CircuitType currentCircuitType = grabTargets[selectedChannel].getCircuitType();
 		
 		if(CircuitType.hasCoordinate(currentCircuitType)) {
-			subSettingString.setLabelText("Control Rod: ");
+			subSettingString.setLabelText(StatCollector.translateToLocal("Control_Rod"));
 			subSettingForwardBtn.visible = true;
 			subSettingBackBtn.visible = true;
 		}
 		else if(TileEntityReactorRedNetPort.isInput(currentCircuitType) && CircuitType.canBeToggledBetweenPulseAndNormal(currentCircuitType)) {
-			subSettingString.setLabelText("Activates On:");
+			subSettingString.setLabelText(StatCollector.translateToLocal("Activates_On"));
 			subSettingForwardBtn.visible = true;
 			subSettingBackBtn.visible = true;
 		}
 		else if(currentCircuitType == CircuitType.inputEjectWaste) {
-			subSettingString.setLabelText("Activates On:");
+			subSettingString.setLabelText(StatCollector.translateToLocal("Activates_On"));
 			subSettingForwardBtn.visible = false;
 			subSettingBackBtn.visible = false;
 		}
@@ -319,7 +320,7 @@ public class GuiReactorRedNetPort extends BeefGuiBase {
 				}
 			}
 			else {
-				return "INVALID: " + location.toString();
+				return StatCollector.translateToLocal("INVALID") + location.toString();
 			}
 		}
 	}
@@ -369,10 +370,10 @@ public class GuiReactorRedNetPort extends BeefGuiBase {
 			subSettingValueString.setLabelText( getControlRodLabelFromLocation(circuitType, subSettingCoords[selectedChannel]) );
 		}
 		else if(TileEntityReactorRedNetPort.isInput(circuitType) && CircuitType.canBeToggledBetweenPulseAndNormal(circuitType)) {
-			subSettingValueString.setLabelText(pulseActivated[selectedChannel]?"Pulse":"Level");
+			subSettingValueString.setLabelText(pulseActivated[selectedChannel]?StatCollector.translateToLocal("Pulse"):StatCollector.translateToLocal("Level"));
 		}
 		else if(circuitType == CircuitType.inputEjectWaste) {
-			subSettingValueString.setLabelText("Pulse");
+			subSettingValueString.setLabelText(StatCollector.translateToLocal("Pulse"));
 		}
 		else {
 			subSettingValueString.setLabelText("");

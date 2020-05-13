@@ -177,7 +177,7 @@ public class TileEntityReactorRedNetPort extends TileEntityReactorPart implement
 			int energyStored, energyTotal;
 			MultiblockReactor reactor = this.getReactorController();
 			if(reactor != null) {
-				return reactor.getEnergyStoredPercentage();
+				return (int) reactor.getEnergyGeneratedLastTick();
 			}
 			return 0;
 		default:

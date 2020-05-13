@@ -1,27 +1,11 @@
 package erogenousbeef.bigreactors.common.multiblock;
 
-import io.netty.buffer.ByteBuf;
-
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTankInfo;
-import net.minecraftforge.fluids.IFluidBlock;
-import cofh.api.energy.IEnergyProvider;
 import cofh.lib.util.helpers.ItemHelper;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import erogenousbeef.bigreactors.api.IHeatEntity;
@@ -55,8 +39,24 @@ import erogenousbeef.core.multiblock.IMultiblockPart;
 import erogenousbeef.core.multiblock.MultiblockControllerBase;
 import erogenousbeef.core.multiblock.MultiblockValidationException;
 import erogenousbeef.core.multiblock.rectangular.RectangularMultiblockControllerBase;
+import io.netty.buffer.ByteBuf;
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.StatCollector;
+import net.minecraft.world.World;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTankInfo;
+import net.minecraftforge.fluids.IFluidBlock;
 
-public class MultiblockReactor extends RectangularMultiblockControllerBase implements IEnergyProvider, IReactorFuelInfo, IMultipleFluidHandler, IActivateable {
+public class MultiblockReactor extends RectangularMultiblockControllerBase implements IReactorFuelInfo, IMultipleFluidHandler, IActivateable {
 	public static final int FuelCapacityPerFuelRod = 4 * Reactants.standardSolidReactantAmount; // 4 ingots per rod
 	
 	public static final int FLUID_SUPERHEATED = CoolantContainer.HOT;
@@ -71,7 +71,7 @@ public class MultiblockReactor extends RectangularMultiblockControllerBase imple
 	private float reactorHeat;
 	private float fuelHeat;
 	private WasteEjectionSetting wasteEjection;
-	private float energyStored;
+	//private float energyStored;
 	protected FuelContainer fuelContainer;
 	protected RadiationHelper radiationHelper;
 	protected CoolantContainer coolantContainer;
@@ -111,16 +111,15 @@ public class MultiblockReactor extends RectangularMultiblockControllerBase imple
 	private Set<EntityPlayer> updatePlayers;
 	private int ticksSinceLastUpdate;
 	private static final int ticksBetweenUpdates = 3;
-	private static final int maxEnergyStored = 10000000;
 	
 	public MultiblockReactor(World world) {
 		super(world);
-
+		
 		// Game stuff
 		active = false;
 		reactorHeat = 0f;
 		fuelHeat = 0f;
-		energyStored = 0f;
+		//energyStored = 0f;
 		wasteEjection = WasteEjectionSetting.kAutomatic;
 
 		// Derived stats
@@ -161,6 +160,33 @@ public class MultiblockReactor extends RectangularMultiblockControllerBase imple
 	
 	public void stopUpdatingPlayer(EntityPlayer playerToRemove) {
 		updatePlayers.remove(playerToRemove);
+	}
+	
+	public int getAttachedPowerTapsCount() {
+		int count = 0;
+		for(TileEntityReactorPowerTap powerTap : attachedPowerTaps) {
+			if(powerTap.hasEnergyConnection())
+				count++;
+		}
+		return count;
+	}
+	
+	public int getPTEUCount() {
+		int count = 0;
+		for(TileEntityReactorPowerTap powerTap : attachedPowerTaps) {
+			if(powerTap.hasEnergyConnection() && powerTap.euNetwork != null)
+				count++;
+		}
+		return count;
+	}
+	
+	public int getPTRFCount() {
+		int count = 0;
+		for(TileEntityReactorPowerTap powerTap : attachedPowerTaps) {
+			if(powerTap.hasEnergyConnection() && powerTap.rfNetwork != null)
+				count++;
+		}
+		return count;
 	}
 	
 	@Override
@@ -253,12 +279,13 @@ public class MultiblockReactor extends RectangularMultiblockControllerBase imple
 	protected void isMachineWhole() throws MultiblockValidationException {
 		// Ensure that there is at least one controller and control rod attached.
 		if(attachedControlRods.size() < 1) {
-			throw new MultiblockValidationException("Not enough control rods. Reactors require at least 1.");
+			throw new MultiblockValidationException(StatCollector.translateToLocal("Not enough control rods. Reactors require at least 1."));
 		}
 		
 		if(attachedControllers.size() < 1) {
-			throw new MultiblockValidationException("Not enough controllers. Reactors require at least 1.");
+			throw new MultiblockValidationException(StatCollector.translateToLocal("Not enough controllers. Reactors require at least 1."));
 		}
+		
 		
 		super.isMachineWhole();
 	}
@@ -274,7 +301,7 @@ public class MultiblockReactor extends RectangularMultiblockControllerBase imple
 		}
 		
 		float oldHeat = this.getReactorHeat();
-		float oldEnergy = this.getEnergyStored();
+		//float oldEnergy = this.getEnergyStored();
 		energyGeneratedLastTick = 0f;
 		fuelConsumedLastTick = 0f;
 
@@ -359,31 +386,11 @@ public class MultiblockReactor extends RectangularMultiblockControllerBase imple
 		if(fuelHeat < 0f) { setFuelHeat(0f); }
 		
 		// Distribute available power
-		int energyAvailable = (int)getEnergyStored();
-		int energyRemaining = energyAvailable;
-		if(attachedPowerTaps.size() > 0 && energyRemaining > 0) {
-			// First, try to distribute fairly
-			int splitEnergy = energyRemaining / attachedPowerTaps.size();
+		if(attachedPowerTaps.size() > 0) {
 			for(TileEntityReactorPowerTap powerTap : attachedPowerTaps) {
-				if(energyRemaining <= 0) { break; }
 				if(!powerTap.isConnected()) { continue; }
-
-				energyRemaining -= splitEnergy - powerTap.onProvidePower(splitEnergy);
+				powerTap.onProvidePower((int) this.getEnergyGeneratedLastTick());
 			}
-
-			// Next, just hose out whatever we can, if we have any left
-			if(energyRemaining > 0) {
-				for(TileEntityReactorPowerTap powerTap : attachedPowerTaps) {
-					if(energyRemaining <= 0) { break; }
-					if(!powerTap.isConnected()) { continue; }
-
-					energyRemaining = powerTap.onProvidePower(energyRemaining);
-				}
-			}
-		}
-		
-		if(energyAvailable != energyRemaining) {
-			reduceStoredEnergy((energyAvailable - energyRemaining));
 		}
 
 		// Send updates periodically
@@ -404,10 +411,10 @@ public class MultiblockReactor extends RectangularMultiblockControllerBase imple
 			markReferenceCoordForUpdate();
 		}
 		
-		return (oldHeat != this.getReactorHeat() || oldEnergy != this.getEnergyStored());
+		return (oldHeat != this.getReactorHeat());
 	}
 	
-	public void setEnergyStored(float oldEnergy) {
+	/*public void setEnergyStored(float oldEnergy) {
 		energyStored = oldEnergy;
 		if(energyStored < 0.0 || Float.isNaN(energyStored)) {
 			energyStored = 0.0f;
@@ -415,7 +422,7 @@ public class MultiblockReactor extends RectangularMultiblockControllerBase imple
 		else if(energyStored > maxEnergyStored) {
 			energyStored = maxEnergyStored;
 		}
-	}
+	}*/
 	
 	/**
 	 * Generate energy, internally. Will be multiplied by the BR Setting powerProductionMultiplier
@@ -424,7 +431,7 @@ public class MultiblockReactor extends RectangularMultiblockControllerBase imple
 	protected void generateEnergy(float newEnergy) {
 		newEnergy = newEnergy * BigReactors.powerProductionMultiplier * BigReactors.reactorPowerProductionMultiplier;
 		this.energyGeneratedLastTick += newEnergy;
-		this.addStoredEnergy(newEnergy);
+		//this.addStoredEnergy(newEnergy);
 	}
 
 	/**
@@ -432,7 +439,7 @@ public class MultiblockReactor extends RectangularMultiblockControllerBase imple
 	 * Will not increase the buffer above the maximum or reduce it below 0.
 	 * @param newEnergy
 	 */
-	protected void addStoredEnergy(float newEnergy) {
+	/*protected void addStoredEnergy(float newEnergy) {
 		if(Float.isNaN(newEnergy)) { return; }
 
 		energyStored += newEnergy;
@@ -443,16 +450,16 @@ public class MultiblockReactor extends RectangularMultiblockControllerBase imple
 			// Clamp to zero
 			energyStored = 0f;
 		}
-	}
+	}*/
 
 	/**
 	 * Remove some energy from the internal storage buffer.
 	 * Will not reduce the buffer below 0.
 	 * @param energy Amount by which the buffer should be reduced.
 	 */
-	protected void reduceStoredEnergy(float energy) {
+	/*protected void reduceStoredEnergy(float energy) {
 		this.addStoredEnergy(-1f * energy);
-	}
+	}*/
 	
 	public void setActive(boolean act) {
 		if(act == this.active) { return; }
@@ -545,14 +552,14 @@ public class MultiblockReactor extends RectangularMultiblockControllerBase imple
 				String fluidName = fluid.getName();
 				if(ReactorInterior.getFluidData(fluidName) != null) { return; }
 
-				throw new MultiblockValidationException(String.format("%d, %d, %d - The fluid %s is not valid for the reactor's interior", x, y, z, fluidName));
+				throw new MultiblockValidationException(String.format(StatCollector.translateToLocal("%d, %d, %d - The fluid %s is not valid for the reactor's interior"), x, y, z, fluidName));
 			}
 			else {
-				throw new MultiblockValidationException(String.format("%d, %d, %d - %s is not valid for the reactor's interior", x, y, z, block.getLocalizedName()));
+				throw new MultiblockValidationException(String.format(StatCollector.translateToLocal("%d, %d, %d - %s is not valid for the reactor's interior"), x, y, z, block.getLocalizedName()));
 			}
 		}
 		else {
-			throw new MultiblockValidationException(String.format("%d, %d, %d - Null block found, not valid for the reactor's interior", x, y, z));
+			throw new MultiblockValidationException(String.format(StatCollector.translateToLocal("%d, %d, %d - Null block found, not valid for the reactor's interior"), x, y, z));
 		}
 	}
 	
@@ -561,7 +568,6 @@ public class MultiblockReactor extends RectangularMultiblockControllerBase imple
 		data.setBoolean("reactorActive", this.active);
 		data.setFloat("heat", this.reactorHeat);
 		data.setFloat("fuelHeat", fuelHeat);
-		data.setFloat("storedEnergy", this.energyStored);
 		data.setInteger("wasteEjection2", this.wasteEjection.ordinal());
 		data.setTag("fuelContainer", fuelContainer.writeToNBT(new NBTTagCompound()));
 		data.setTag("radiation", radiationHelper.writeToNBT(new NBTTagCompound()));
@@ -577,11 +583,7 @@ public class MultiblockReactor extends RectangularMultiblockControllerBase imple
 		if(data.hasKey("heat")) {
 			setReactorHeat(Math.max(getReactorHeat(), data.getFloat("heat")));
 		}
-		
-		if(data.hasKey("storedEnergy")) {
-			setEnergyStored(Math.max(getEnergyStored(), data.getFloat("storedEnergy")));
-		}
-		
+
 		if(data.hasKey("wasteEjection2")) {
 			this.wasteEjection = s_EjectionSettings[data.getInteger("wasteEjection2")];
 		}
@@ -641,7 +643,6 @@ public class MultiblockReactor extends RectangularMultiblockControllerBase imple
 		buf.writeBoolean(active);
 		buf.writeFloat(reactorHeat);
 		buf.writeFloat(fuelHeat);
-		buf.writeFloat(energyStored);
 		buf.writeFloat(radiationHelper.getFertility());
 		
 		// Statistics
@@ -666,7 +667,7 @@ public class MultiblockReactor extends RectangularMultiblockControllerBase imple
 		setActive(buf.readBoolean());
 		setReactorHeat(buf.readFloat());
 		setFuelHeat(buf.readFloat());
-		setEnergyStored(buf.readFloat());
+		
 		radiationHelper.setFertility(buf.readFloat());
 		
 		// Statistics
@@ -686,7 +687,7 @@ public class MultiblockReactor extends RectangularMultiblockControllerBase imple
 		if(coolantTypeID == -1) {
 			coolantContainer.emptyCoolant();
 		}
-		else {
+		else { 
 			coolantContainer.setCoolant(new FluidStack(FluidRegistry.getFluid(coolantTypeID), coolantAmt));
 		}
 		
@@ -696,7 +697,6 @@ public class MultiblockReactor extends RectangularMultiblockControllerBase imple
 		else {
 			coolantContainer.setVapor(new FluidStack(FluidRegistry.getFluid(vaporTypeID), vaporAmt));
 		}
-		
 	}
 	
 	protected IMessage getUpdatePacket() {
@@ -786,7 +786,7 @@ public class MultiblockReactor extends RectangularMultiblockControllerBase imple
 		if(otherReactor.reactorHeat > this.reactorHeat) { setReactorHeat(otherReactor.reactorHeat); }
 		if(otherReactor.fuelHeat > this.fuelHeat) { setFuelHeat(otherReactor.fuelHeat); }
 
-		if(otherReactor.getEnergyStored() > this.getEnergyStored()) { this.setEnergyStored(otherReactor.getEnergyStored()); }
+		//if(otherReactor.getEnergyStored() > this.getEnergyStored()) { this.setEnergyStored(otherReactor.getEnergyStored()); }
 
 		fuelContainer.merge(otherReactor.fuelContainer);
 		radiationHelper.merge(otherReactor.radiationHelper);
@@ -798,9 +798,9 @@ public class MultiblockReactor extends RectangularMultiblockControllerBase imple
 		this.readFromNBT(data);
 	}
 	
-	public float getEnergyStored() {
-		return energyStored;
-	}
+	//public float getEnergyStored() {
+	//	return energyStored;
+	//}
 
 	/**
 	 * Directly set the waste ejection setting. Will dispatch network updates
@@ -845,11 +845,12 @@ public class MultiblockReactor extends RectangularMultiblockControllerBase imple
 			// See what type of reactant the port contains; if none, skip it.
 			String portReactantType = port.getInputReactantType();
 			int portReactantAmount = port.getInputReactantAmount();
+			
 			if(portReactantType == null || portReactantAmount <= 0) { continue; }
 			
 			if(!Reactants.isFuel(portReactantType)) { continue; } // Skip nonfuels
 
-			// HACK; TEMPORARY
+			// HACK; TEMPORARY TODO: Check it
 			// Alias blutonium to yellorium temporarily, until mixed fuels are implemented
 			if(portReactantType.equals(StandardReactants.blutonium)) {
 				portReactantType = StandardReactants.yellorium;
@@ -861,8 +862,7 @@ public class MultiblockReactor extends RectangularMultiblockControllerBase imple
 			
 			int portCanAdd = port.consumeReactantItem(amountToAdd);
 			if(portCanAdd <= 0) { continue; }
-			
-			amtAdded = fuelContainer.addFuel(portReactantType, portReactantAmount, true);
+			amtAdded = fuelContainer.addFuel(portReactantType, portCanAdd, true);
 		}
 		
 		if(amtAdded > 0) {
@@ -1109,32 +1109,6 @@ public class MultiblockReactor extends RectangularMultiblockControllerBase imple
 		else { return (float)amtFuel / (float)(amtFuel+amtWaste); }
 	}
 
-	// IEnergyProvider
-	@Override
-	public int extractEnergy(ForgeDirection from, int maxExtract,
-			boolean simulate) {
-		int amtRemoved = (int)Math.min(maxExtract, this.energyStored);
-		if(!simulate) {
-			this.reduceStoredEnergy(amtRemoved);
-		}
-		return amtRemoved;
-	}
-
-	@Override
-	public boolean canConnectEnergy(ForgeDirection from) {
-		return false;
-	}
-
-	@Override
-	public int getEnergyStored(ForgeDirection from) {
-		return (int)energyStored;
-	}
-
-	@Override
-	public int getMaxEnergyStored(ForgeDirection from) {
-		return maxEnergyStored;
-	}
-
 	// Redstone helper
 	public void setAllControlRodInsertionValues(int newValue) {
 		if(this.assemblyState != AssemblyState.Assembled) { return; }
@@ -1181,9 +1155,9 @@ public class MultiblockReactor extends RectangularMultiblockControllerBase imple
 		return fuelContainer.getWasteType();
 	}
 
-	public int getEnergyStoredPercentage() {
+	/*public int getEnergyStoredPercentage() {
 		return (int)(this.energyStored / (float)this.maxEnergyStored * 100f);
-	}
+	}*/
 
 	@Override
 	public int getCapacity() {
@@ -1283,22 +1257,21 @@ public class MultiblockReactor extends RectangularMultiblockControllerBase imple
 	
 	public String getDebugInfo() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("Assembled: ").append(Boolean.toString(isAssembled())).append("\n");
-		sb.append("Attached Blocks: ").append(Integer.toString(connectedParts.size())).append("\n");
+		sb.append(StatCollector.translateToLocal("Assembled:")).append(Boolean.toString(isAssembled())).append("\n");
+		sb.append(StatCollector.translateToLocal("Attached Blocks:")).append(Integer.toString(connectedParts.size())).append("\n");
 		if(getLastValidationException() != null) {
-			sb.append("Validation Exception:\n").append(getLastValidationException().getMessage()).append("\n");
+			sb.append(StatCollector.translateToLocal("Validation Exception:") + "\n").append(getLastValidationException().getMessage()).append("\n");
 		}
 		
 		if(isAssembled()) {
-			sb.append("\nActive: ").append(Boolean.toString(getActive()));
-			sb.append("\nStored Energy: ").append(Float.toString(getEnergyStored()));
-			sb.append("\nCasing Heat: ").append(Float.toString(getReactorHeat()));
-			sb.append("\nFuel Heat: ").append(Float.toString(getFuelHeat()));
-			sb.append("\n\nReactant Tanks:\n");
+			sb.append("\n"+ StatCollector.translateToLocal("Active:")).append(Boolean.toString(getActive()));
+			sb.append("\n" + StatCollector.translateToLocal("Casing Heat:")).append(Float.toString(getReactorHeat()));
+			sb.append("\n" + StatCollector.translateToLocal("Fuel Heat:")).append(Float.toString(getFuelHeat()));
+			sb.append("\n\n" + StatCollector.translateToLocal("Reactant Tanks:") + "\n");
 			sb.append( fuelContainer.getDebugInfo() );
-			sb.append("\n\nActively Cooled: ").append(Boolean.toString(!isPassivelyCooled()));
+			sb.append("\n" + StatCollector.translateToLocal("Actively Cooled:")).append(Boolean.toString(!isPassivelyCooled()));
 			if(!isPassivelyCooled()) {
-				sb.append("\n\nCoolant Tanks:\n");
+				sb.append("\n\n" + StatCollector.translateToLocal("Coolant Tanks:") + "\n");
 				sb.append( coolantContainer.getDebugInfo() );
 			}
 		}

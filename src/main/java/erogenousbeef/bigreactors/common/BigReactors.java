@@ -3,22 +3,6 @@ package erogenousbeef.bigreactors.common;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.EnumRarity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.oredict.OreDictionary;
-import net.minecraftforge.oredict.ShapedOreRecipe;
-import net.minecraftforge.oredict.ShapelessOreRecipe;
 import cofh.core.util.oredict.OreDictionaryArbiter;
 import cofh.lib.util.helpers.ItemHelper;
 import cpw.mods.fml.common.Loader;
@@ -30,7 +14,6 @@ import erogenousbeef.bigreactors.api.registry.Reactants;
 import erogenousbeef.bigreactors.api.registry.ReactorConversions;
 import erogenousbeef.bigreactors.api.registry.ReactorInterior;
 import erogenousbeef.bigreactors.api.registry.TurbineCoil;
-import erogenousbeef.bigreactors.common.block.BlockBRDevice;
 import erogenousbeef.bigreactors.common.block.BlockBRGenericFluid;
 import erogenousbeef.bigreactors.common.block.BlockBRMetal;
 import erogenousbeef.bigreactors.common.block.BlockBROre;
@@ -68,9 +51,27 @@ import erogenousbeef.bigreactors.common.multiblock.tileentity.TileEntityTurbineR
 import erogenousbeef.bigreactors.common.multiblock.tileentity.TileEntityTurbineRotorPart;
 import erogenousbeef.bigreactors.common.multiblock.tileentity.creative.TileEntityReactorCreativeCoolantPort;
 import erogenousbeef.bigreactors.common.multiblock.tileentity.creative.TileEntityTurbineCreativeSteamGenerator;
-import erogenousbeef.bigreactors.common.tileentity.TileEntityCyaniteReprocessor;
 import erogenousbeef.bigreactors.world.BRSimpleOreGenerator;
 import erogenousbeef.bigreactors.world.BRWorldGenerator;
+import ic2.api.recipe.RecipeInputItemStack;
+import ic2.api.recipe.Recipes;
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.EnumRarity;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.IIcon;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.oredict.ShapedOreRecipe;
+import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 public class BigReactors {
 
@@ -155,6 +156,7 @@ public class BigReactors {
 	
 	public static float powerProductionMultiplier = 1.0f;
 	public static float fuelUsageMultiplier = 1.0f;
+	public static double RFtoEU = 0.25;
 	
 	public static float reactorPowerProductionMultiplier = 1.0f;
 	public static float turbinePowerProductionMultiplier = 1.0f;
@@ -216,6 +218,8 @@ public class BigReactors {
 
 			reactorPowerProductionMultiplier = (float)BRConfig.CONFIGURATION.get("General", "reactorPowerProductionMultiplier", 1.0f, "A multiplier for balancing reactor power production. Stacks with powerProductionMultiplier. Defaults to 1.").getDouble(1.0);
 			turbinePowerProductionMultiplier = (float)BRConfig.CONFIGURATION.get("General", "turbinePowerProductionMultiplier", 1.0f, "A multiplier for balancing turbine power production. Stacks with powerProductionMultiplier. Defaults to 1.").getDouble(1.0);
+			
+			RFtoEU = BRConfig.CONFIGURATION.get("General", "RFtoEU", 0.25, "Coefficient of conversion of the RF into EU. Default 0.25, RF * RFtoEU = EU").getDouble(0.25);
 			
 			maximumTurbineSize = BRConfig.CONFIGURATION.get("General",  "maxTurbineSize", 16, "The maximum valid size of a turbine in the X/Z plane, in blocks. Lower this for smaller turbines, which means lower max output.").getInt();
 			maximumTurbineHeight = BRConfig.CONFIGURATION.get("General",  "maxTurbineHeight", 32, "The maximum valid height of a turbine (Y axis), in blocks. (Default: 32)").getInt();
@@ -322,6 +326,13 @@ public class BigReactors {
 			
 			ItemStack ingotGraphite = OreDictionaryArbiter.getOres("ingotGraphite").get(0).copy();
 			ItemStack ingotCyanite = OreDictionaryArbiter.getOres("ingotCyanite").get(0).copy();
+			ItemStack ingotBlutonium = OreDictionaryArbiter.getOres("ingotBlutonium").get(0).copy();
+			
+			//Blutonium craft in centrifuge
+			NBTTagCompound nbt = new NBTTagCompound();
+			nbt.setInteger("amplification", 1);
+			nbt.setInteger("minHeat", 4000);
+			Recipes.centrifuge.addRecipe(new RecipeInputItemStack(ingotCyanite, 1), nbt, ingotBlutonium);
 			
 			if(registerCoalFurnaceRecipe) {
 				// Coal -> Graphite
@@ -404,10 +415,6 @@ public class BigReactors {
 				}
 			}
 			
-			if(blockDevice != null) {
-				ItemStack cyaniteReprocessorStack = ((BlockBRDevice)blockDevice).getCyaniteReprocessorItemStack();
-				GameRegistry.addRecipe(new ShapedOreRecipe(cyaniteReprocessorStack, "CIC", "PFP", "CRC", 'C', "reactorCasing", 'I', ironOrSteelIngot, 'F', blockYelloriumFuelRod, 'P', Blocks.piston, 'R', Items.redstone));
-			}
 			
 			if(blockReactorRedstonePort != null) {
 				ItemStack redstonePortStack = new ItemStack(BigReactors.blockReactorRedstonePort, 1);
@@ -462,8 +469,7 @@ public class BigReactors {
 			GameRegistry.registerTileEntity(TileEntityReactorAccessPort.class,	"BRReactorAccessPort");
 			GameRegistry.registerTileEntity(TileEntityReactorGlass.class,		"BRReactorGlass");
 			GameRegistry.registerTileEntity(TileEntityReactorFuelRod.class, 			"BRFuelRod");
-			GameRegistry.registerTileEntity(TileEntityCyaniteReprocessor.class, "BRCyaniteReprocessor");
-			
+
 			GameRegistry.registerTileEntity(TileEntityReactorControlRod.class, "BRReactorControlRod");
 			GameRegistry.registerTileEntity(TileEntityReactorRedNetPort.class, "BRReactorRedNetPort");
 			GameRegistry.registerTileEntity(TileEntityReactorRedstonePort.class,"BRReactorRedstonePort");
@@ -642,19 +648,6 @@ public class BigReactors {
 			OreDictionary.registerOre("turbineRotorShaft", BigReactors.blockTurbineRotorPart.getItemStack("rotor"));
 			OreDictionary.registerOre("turbineRotorBlade", BigReactors.blockTurbineRotorPart.getItemStack("blade"));
 
-			BRConfig.CONFIGURATION.save();
-		}
-	}
-	
-	public static void registerDevices(int id, boolean require) {
-		if(BigReactors.blockDevice == null) {
-			BRConfig.CONFIGURATION.load();
-
-			BigReactors.blockDevice = new BlockBRDevice(Material.iron);
-			GameRegistry.registerBlock(BigReactors.blockDevice, ItemBlockBigReactors.class, "BRDevice");
-			
-			OreDictionary.registerOre("brDeviceCyaniteProcessor", ((BlockBRDevice)BigReactors.blockDevice).getCyaniteReprocessorItemStack());
-			
 			BRConfig.CONFIGURATION.save();
 		}
 	}

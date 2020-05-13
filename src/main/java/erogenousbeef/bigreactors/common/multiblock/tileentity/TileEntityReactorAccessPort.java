@@ -61,7 +61,6 @@ public class TileEntityReactorAccessPort extends TileEntityReactorPart implement
 	public int getInputReactantAmount() {
 		ItemStack inputItem = getStackInSlot(SLOT_INLET);
 		if(inputItem == null) { return 0; }
-
 		SourceProductMapping mapping = Reactants.getSolidToReactant(inputItem);
 		return mapping != null ? mapping.getProductAmount(inputItem.stackSize) : 0;
 	}
@@ -82,7 +81,6 @@ public class TileEntityReactorAccessPort extends TileEntityReactorPart implement
 		int sourceItemsToConsume = Math.min(inputItem.stackSize, mapping.getSourceAmount(reactantDesired));
 		
 		if(sourceItemsToConsume <= 0) { return 0; }
-
 		decrStackSize(SLOT_INLET, sourceItemsToConsume);
 		return mapping.getProductAmount(sourceItemsToConsume);
 	}
@@ -125,7 +123,7 @@ public class TileEntityReactorAccessPort extends TileEntityReactorPart implement
 			
 			outputItem.stackSize += amtToProduce;
 			onItemsReceived();
-			
+
 			return reactantToConsume;
 		}
 
@@ -204,7 +202,7 @@ public class TileEntityReactorAccessPort extends TileEntityReactorPart implement
 		super.readFromNBT(tag);
 		_inventories = new ItemStack[getSizeInventory()];
 		if(tag.hasKey("Items")) {
-			NBTTagList tagList = tag.getTagList("Items", 10);
+			NBTTagList tagList = tag.getTagList("Items", 9);
 			for(int i = 0; i < tagList.tagCount(); i++) {
 				NBTTagCompound itemTag = (NBTTagCompound)tagList.getCompoundTagAt(i);
 				int slot = itemTag.getByte("Slot") & 0xff;

@@ -12,6 +12,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
@@ -103,7 +104,7 @@ public class BlockTurbineRotorPart extends BlockContainer {
 		}
 		
 		if(metadata < 0) {
-			throw new IllegalArgumentException("Unable to find a block with the name " + name);
+			throw new IllegalArgumentException(StatCollector.translateToLocal("Unable to find a block with the name ") + name);
 		}
 		
 		return new ItemStack(this, 1, metadata);

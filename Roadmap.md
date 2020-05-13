@@ -19,6 +19,15 @@ Known Issues
 
 - Turbines do not properly (visually) assemble and have spotty UI updates if mod blocks are used as coils. This can be worked around prior to rc9 by using vanilla blocks, and after rc9 by using vanilla blocks or ludicrite blocks. This is due to a bug in CoFHCore and will be fixed in CoFHCore 3.0.0B7 (or newer).
 
+###TODO - Realistics:
+- reactors and turbine be explosions after reheat/overspeed
+- add IC2 coolant, maybe make own coolant
+- old roadmap maybe contain useful todo
+- add own multi energy storage with inside converter for EU/RF
+
+
+#OLD Roadmap
+###--------------------------------------
 TODO - 0.5: The Exotic Coolant Update
 ------------------------------
 ### Internals

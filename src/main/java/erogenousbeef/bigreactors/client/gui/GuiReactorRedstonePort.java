@@ -8,6 +8,7 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
 
 import org.lwjgl.input.Keyboard;
 
@@ -93,10 +94,10 @@ public class GuiReactorRedstonePort extends BeefGuiBase {
 		int leftX = guiLeft + 6;
 		int topY = guiTop + 6;
 		
-		titleString = new BeefGuiLabel(this, "Reactor Redstone Port", leftX+2, topY);
+		titleString = new BeefGuiLabel(this, StatCollector.translateToLocal("Reactor Redstone Port"), leftX+2, topY);
 		topY += titleString.getHeight() + 4;
 		
-		settingString = new BeefGuiLabel(this, "Pick a setting", leftX, topY);
+		settingString = new BeefGuiLabel(this, StatCollector.translateToLocal("Pick a setting"), leftX, topY);
 		topY += settingString.getHeight() + 4;
 		
 		// Setting picker
@@ -126,15 +127,15 @@ public class GuiReactorRedstonePort extends BeefGuiBase {
 		leftX = guiLeft + 6;
 
 		// Subsetting display
-		subSettingLabel = new BeefGuiLabel(this, "Settings", leftX, topY);
+		subSettingLabel = new BeefGuiLabel(this, StatCollector.translateToLocal("Settings"), leftX, topY);
 		topY += subSettingLabel.getHeight() + 4;
 
-		subInputButton = new GuiButton(2, leftX, topY, 100, 20, "Activate on Pulse");
-		subInputButton2 = new GuiButton(3, leftX + xSize - 46, topY, 36, 20, "Mode");
+		subInputButton = new GuiButton(2, leftX, topY, 100, 20, StatCollector.translateToLocal("Activate on Pulse"));
+		subInputButton2 = new GuiButton(3, leftX + xSize - 46, topY, 36, 20, StatCollector.translateToLocal("Mode"));
 		topY += 24;
 		
-		subInputRodSettingLabel = new BeefGuiLabel(this, "While On", leftX, topY);
-		subInputRodSettingOffLabel = new BeefGuiLabel(this, "While Off", leftX + xSize/2, topY);
+		subInputRodSettingLabel = new BeefGuiLabel(this, StatCollector.translateToLocal("While On"), leftX, topY);
+		subInputRodSettingOffLabel = new BeefGuiLabel(this, StatCollector.translateToLocal("While Off"), leftX + xSize/2, topY);
 		
 		subOutputValue = new GuiTextField(this.fontRendererObj, leftX, topY, 60, 12);
 		subOutputValue.setCanLoseFocus(true);
@@ -236,15 +237,15 @@ public class GuiReactorRedstonePort extends BeefGuiBase {
 
 	private String getLabelFromSelectedSubSetting(CircuitType selectedSetting) {
 		switch(selectedSetting) {
-			case inputActive: 			return "Input - Enable/Disable";
-			case inputEjectWaste: 		return "Input - Eject Waste";
-			case inputSetControlRod: 	return "Input - Control Rod Insertion";
-			case outputFuelAmount: 		return "Output - Fuel Amount";
-			case outputWasteAmount: 	return "Output - Waste Amount";
-			case outputFuelMix: 		return "Output - Fuel Enrichment %";
-			case outputFuelTemperature: 	return "Output - Fuel Temp (C)";
-			case outputCasingTemperature:	return "Output - Casing Temp (C)";
-			case outputEnergyAmount:	return "Output - Energy Amount (%)";
+			case inputActive: 			return StatCollector.translateToLocal("Input - Enable/Disable");
+			case inputEjectWaste: 		return StatCollector.translateToLocal("Input - Eject Waste");
+			case inputSetControlRod: 	return StatCollector.translateToLocal("Input - Control Rod Insertion");
+			case outputFuelAmount: 		return StatCollector.translateToLocal("Output - Fuel Amount");
+			case outputWasteAmount: 	return StatCollector.translateToLocal("Output - Waste Amount");
+			case outputFuelMix: 		return StatCollector.translateToLocal("Output - Fuel Enrichment %");
+			case outputFuelTemperature: 	return StatCollector.translateToLocal("Output - Fuel Temp (C)");
+			case outputCasingTemperature:	return StatCollector.translateToLocal("Output - Casing Temp (C)");
+			case outputEnergyAmount:	return StatCollector.translateToLocal("Output - Energy Amount (%)");
 		default:
 			return "";
 		}

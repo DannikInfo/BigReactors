@@ -1,5 +1,5 @@
 # Big Reactors Language File - Russian
-# @author Vladimir Gendel
+# @author Vladimir Gendel/dannikinfo
 
 itemGroup.BigReactors=Big Reactors
 
@@ -16,7 +16,7 @@ tile.brMultiblockGlass.1.name=Турбинное стекло
 tile.blockReactorRedstonePort.name=Красный порт реактора
 tile.blockReactorPart.0.name=Реакторный корпус
 tile.blockReactorPart.1.name=Реакторный контроллер
-tile.blockReactorPart.2.name=Реакторный контролирующий стержень
+tile.blockReactorPart.2.name=Реакторный управляющий стержень
 tile.blockReactorPart.3.name=Реакторная розетка
 tile.blockReactorPart.4.name=Реакторный порт доступа
 tile.blockReactorPart.6.name=Реакторный RedNet порт
@@ -62,3 +62,314 @@ fluid.steam=Пар
 tile.fluid.yellorium.still.name=Жидкий йеллориум
 tile.fluid.cyanite.still.name=Жидкий цианит
 tile.fluid.blutonium.still.name=Жидкий блутоний
+
+# GUI
+
+#--- AccessPort GUI
+
+Eject_Fuel=Извлечь топливо
+Ejects_fuel_contained_in_the=Извлекает топливо из
+reactor_placing_ingots_in_the=реактора, помещает слитки в 
+reactors_access_ports=реакторный порт доступа
+SHIFT_Dump_excess_fuel=SHIFT: Извлечь всё топливо
+SHIFT_Dump_excess_waste=SHIFT: Извлечь всё отработанное топливо
+Eject_Waste=Извлечь отработанное топливо
+Ejects_waste_contained_in_the=Извлекает отработанное топливо из
+Inlet_Mode=Принимающий режим
+Sets_the_access_port_to=Устанавлиает порт доступа в
+inlet_mode=принимающий режим.
+Port_WILL_accept=Порт поддерживает
+Port_WILL_NOT_eject=Порт не извлекает
+items_to_pipes/ducts=предметы в трубы и тд
+Outlet_Mode=Извлекающий режим
+outlet_mode=извлекающий режим.
+Port_WILL_NOT_accept=Порт не поддерживает
+items_from_pipes/ducts=предметы из труб и тд
+Port_WILL_eject=Порт извлекает
+ingots_to_pipes/ducts=предметы в трубы и тд 
+
+#--- ControlRod GUI
+
+Rod_Insertion=Погружение стержня
+Change_the_control_rods_insertion=Изменяйте погружение стержня.
+Higher_insertion_slows_reaction_rate=Чем глубже стержень, тем медленее реакция
+Lower_reaction_rates_reduce_heat=Медленная реакция снижает температуру,
+energy_radiation_output_and=энергию, выход радиации, и
+fuel_consumption=затраты топлива.
+Insert_Rod=Опустить стержень
+Increase_insertion_by_10=Увеличивает погружение на 10.
+Shift_P100=Shift: +100
+Alt_P5=Alt: +5
+ShiftAlt_P1=Shift+Alt: +1
+Retract_Rod=Поднять стержешь
+Reduce_insertion_by_10=Уменьшает погружение на 10.
+Shift_M100=Shift: -100
+Alt_M5=Alt: -5
+ShiftAlt_M1=Shift+Alt: -1
+Ctrl_Change_ALL_Rods=Ctrl: изменить все стержни
+Reactor_Control_Rod=Реакторный управляющий стержень
+Set=Ок
+Name:= Имя:
+
+#--- RedNetPort GUI
+
+Input_Toggle_reactor_on/off=Ввод: Включает/выключает реактор
+Input_Change_control_rod_insertion=Ввод: Изменяет погружение управляющего стержня
+Input_Eject_Waste=Ввод: Извлечь отработанное топливо
+Output_Fuel_Temp=Вывод: Температура топлива (C)
+Output_Casing_Temp=Вывод: Температура корпуса (C)
+Output_Fuel_mix=Вывод: Топливная смесь (% fuel, 0-100)
+Output_Fuel_amount=Вывод: Количество топлива
+Output_Waste_amount=Вывод: Количество отработанного топлива
+Output_Energy_amount=Вывод: Количество энергии (%)
+Activates_On=Активирует на:
+Pulse=Пульс
+Level=Уровень
+INVALID=НЕДЕЙСТВИТЕЛЬНО: 
+Control_Rod=Управляющий стержень:
+Commit=Фиксировать
+Settings=Настройки
+
+#--- ReactorStatus GUI
+
+Activate Reactor=Активировать реактор
+Deactivate Reactor=Деактивировать реактор
+Residual heat will still=Остаточное тепло все равно будет
+generate power/consume coolant,=генерировать энергию/нагревать охлаждающую жидкость,
+until the reactor cools.=пока реактор не остынет.
+Auto-Eject Waste=Автоизвлечение отработанного топлива
+Waste in the core will be ejected=Отработанное топливо будет извлечено
+as soon as possible=при первой возможности.
+Do Not Auto-Eject Waste=Не извлекать автоматически отработанное топливо
+Waste must be manually ejected.=Отработанное топливо будет извлекаться вручную
+Ejection can be done from this=Извлечь можно здесь, через
+screen, or via rednet,=порт доступа, через реднет
+redstone or computer port signals.=редстоун или сигнал компьютерного порта.
+Eject Waste Now=Извлечь отработанное топливо
+Ejects waste from the core=Извлекает отработанное топливо
+into access ports.=в порт доступа.
+Each 1000mB waste 1 ingot=Каждые 1000mB = 1 слиток
+SHIFT: Dump excess waste, if any=SHIFT: Сбросить отработанное топливо если есть
+Reactor Control=Управление реактором
+Core Temperature=Температура ядра
+Temperature inside the reactor core.=Температура внутри реакторного ядра
+Higher temperatures increase fuel burnup.=Чем больше температура тем быстрее расходуется топливо
+Fuel Burnup Rate=Расход топлива
+The rate at which fuel is=Скорость с которой топливо
+fissioned into waste in the core.=расходуется в ядре реактора
+Fuel Reactivity=Реактивность топлива
+How heavily irradiated the core is.=Насколько сильно облучено ядро
+Higher levels of radiation=Высокие уровни радиации
+reduce fuel burnup.=уменьшают расход топлива.
+Core Heat=Нагрев ядра
+Heat of the reactor's fuel.=Нагрев реакторного топлива.
+High heat raises fuel usage.=Высокая температура повышает\n расход топлива.
+Core heat is transferred to=Нагрев ядра переходит в 
+the casing. Transfer rate=корпус. Скорость передачи
+is based on the design of=зависит от устройства реактора
+the reactor's interior.=внутри.
+Casing Heat=Нагрев корпуса
+Heat of the reactor's casing.=Нагрев реакторного корпуса.
+High heat raises energy output=Высокий нагрев снижает выход энергии
+and coolant conversion.=и цирукляции охлаждающей жидкости.
+Coolant Fluid Tank=Охлаждающий бак
+Casing heat will superheat=Тепло корпуса будет перегревать
+coolant in this tank.=жидкость в этом баке.
+Hot Fluid Tank=Паровой бак
+Superheated coolant=Сверхгорячий охладитель
+will pump into this tank,=будет закачан в этот бак,
+and must be piped out=и должен быть выведен
+via coolant ports=через порт охлаждения.
+Status: =Статус: 
+Online=Online
+Offline=Offline
+EU per tick=EU в тик
+EU lost per tick=EU теряется в тик
+RF per tick=RF в тик
+millibuckets per tick=миливедер в тик
+Energy Output=Выход энергии
+This reactor is passively cooled=Этот реактор охлаждается пассивно
+and generates energy directly from=и генерирует энергию непосредственно из
+the heat of its core.=тепла его ядра.
+Hot Fluid Output=Выход горячего охладителя
+This reactor is actively cooled=Этот реактор охлаждается активно
+by a fluid, such as water, which=жидкостью, такой как вода, которая
+is superheated by the core.=перегревается в ядре.
+
+#--- TurbineController GUI
+
+Turbine Control=Управление турбиной
+Rotor Speed=Скорость ротора
+Speed of the rotor in=Скорость ротора
+revolutions per minute.=измеряется в оборотах в минуту (RPM)
+Rotors perform best at 900=Наибольшая эффективность у турбины от 900
+or 1800 RPM.=до 1800RPM.
+Speeds over 2000PM are overspeed=Скорость превыщающая 2000RPM
+and may cause a turbine to=может вывести турбину
+fail catastrophically.=из строя.
+Turbines generate energy via=Турбина генерирует энергию за счет
+metal induction coils placed=металических индукционных катушек
+around a spinning rotor.=вокруг вращающегося ротора.
+More, or higher-quality, coils=Больше, или более качественные катушки
+generate energy faster.=генерируют больше энергии.
+Rotor Efficiency=Эффективность ротора
+Rotor blades can only fully=Лопасти ротора могут
+capture energy from %d mB of=переработать %d mB
+fluid per blade.=жидкости на лопасть.
+Efficiency drops if the flow=Эффективность падает, если поток
+of input fluid rises past=входящей жидкости меньше 
+capacity.=чем необходим ротору.
+Intake Fluid Tank=Входящий бак
+Exhaust Fluid Tank=Выходящий бак
+Rotor Speed=Скорость ротора
+Rotors perform best at=Самые эффективные для турбины обороты
+900 or 1800 RPM.=от 900 до 1800 RPM.
+Rotors kept overspeed for too=Ротор вращающийся долго на сверхскорости
+long may fail.=может выйти из строя.
+Catastrophically.=Катастрофически.
+Flow Rate Governor=Регулятор расхода
+Controls the maximum rate at=Контролирует максимальную скорость с
+which hot fluids are drawn=которой горячая жидкость
+from the turbine's intake tank=поступает из впускного бака
+and passed over the turbines.=в турбину.
+Effectively, the max rate at which=Эффективность, максимальная скорость, с которой
+the turbine will process fluids.=турбина будет перерабатывать жидкости.
+Increase Max Flow Rate=Увеличить максимальный расход
+Higher flow rates will=Высокий расход увеличит
+increase rotor speed.=скорость вращения ротора.
+SHIFT: +10 mB=SHIFT: +10 mB
+CTRL: +100mB=CTRL: +100mB
+CTRL+SHIFT: +1000mB=CTRL+SHIFT: +1000mB
+Decrease Max Flow Rate=Уменьшить максимальный расход
+Lower flow rates will=Низкий расход понизит
+decrease rotor speed.=скорость вращения ротора.
+SHIFT: -10 mB=SHIFT: -10 mB
+CTRL: -100mB=CTRL: -100mB
+CTRL+SHIFT: -1000mB=CTRL+SHIFT: -1000mB
+Induction Coils=Индукционные катушки
+Metal coils inside the turbine=Металические катушки в турбине
+extract energy from the rotor=извлекают энергию из ротора
+and convert it into EU/RF.=и конвертируют ее в EU/RF.
+These controls engage/disengage=Эти элементы управления включат/выключают
+the coils.=катушки.
+Engage Coils=Включить катушки
+Engages the induction coils.=Включает индукционные катушки
+Energy will be extracted from=Энергия будет извлекаться из 
+the rotor and converted to RF.=ротора и конвертироваться в EU/RF.
+Energy extraction exerts drag=Извлечение энергии оказывает сопротивление 
+on the rotor, slowing it down.=на ротор и замедляет его.
+Disengage Coils=Выключить катушки.
+Disengages the induction coils.=Выключает индукционные катушки
+Energy will NOT be extracted from=Энергия не будет извлекаться из
+the rotor, allowing it to=ротора это приведет
+spin faster.=к увеличению скорости вращения.
+Activate Turbine=Активировать турбину
+Enables flow of intake fluid to rotor.=Включает подачу жидкости в ротор.
+Fluid flow will spin up the rotor.=Поток жидкости раскручивает ротор.
+Deactivate Turbine=Деактивировать турбину
+Disables flow of intake fluid to rotor.=Отключает подачу жидкости в ротор.
+The rotor will spin down.=Скорость вращения начнет падать.
+Vent: All Exhaust=Вентиль: сброс отработанной жидкости
+Dump all exhaust fluids.=Сбросить всю отработанную жидкость.
+The exhaust fluid tank=Бак для отработанной жидкости
+will not fill.=не будет заполняться.
+Vent: Overflow Only=Вентиль: сброс после переполнения
+Dump excess exhaust fluids.=Сбросить лишнюю отработанную жидкость.
+Excess fluids will be lost=Избыток жидкости будет сброшен
+if exhaust fluid tank is full.=если бак для отработанной жидкости полон.
+Vent: Closed=Вентиль: закрыт
+Preserve all exhaust fluids.=Вся отработанная жидкость останется в баке.
+Turbine will slow or halt=Турбина будет замедлять или остановит
+fluid intake if exhaust=потребление входной жидкости если выходной
+fluid tank is full.=бак будет полон.
+Active=Активна
+Inactive=Не активна 
+%d / %d blades=%d / %d лопастей
+Unknown=Неизвестно
+
+#--- Common.item.itemBeefDebugTool
+
+Rightclick a block to show debug info=ПКМ на блок для отображения информации отладки
+Queries on server, by default.=Запрос на сервер по умолчанию
+Shift:=Shift:
+ Query on client= Запрос на клиент 
+[%s] Beef Debug Tool:=[%s] Beef Debug Tool:
+[%s] Canonical ore name for %s: %s=[%s] Каноническое название руды %s: %s
+[%s] All ore names (%d):=[%s] Все названия руды (%d):
+getAllOreNames returned null=getAllOreNames вернул null
+
+#--- MultiBlockReactor
+
+Assembled:=Собраный: 
+Attached Blocks:=Прикреплено блоков: 
+Validation Exception:=Ошибки валидации:
+Active:=Активный: 
+Casing Heat:=Нагрев корпуса: 
+Fuel Heat:=Нагрев топлива: 
+Reactant Tanks:=Емкости с топливом:
+Actively Cooled:=Активно охлаждается: 
+Coolant Tanks:=Охлаждающий бак:
+
+#--- MultiBlockTurbine
+ 
+Rotor Energy:=Энергия ротора: 
+Rotor Speed:=Скорость ротора: 
+Inductor Engaged:=Катушки включены: 
+Vent Status:=Статус вентиля: 
+Max Intake Rate:=Максимальная подача жидкости: 
+Coil Size:=Размер катушки: 
+Rotor Mass:=Масса ротора: 
+Blade SurfArea:=Область лопасти: 
+# Blades:=# Лопасти: 
+# Shafts:=# Валы: 
+Rotor Drag CoEff:=Коэффициент сопротивления ротора: 
+Blade Drag:=Сопротивление лопастей: 
+Frict Drag:=Сопротивление трения: 
+Fluid Tanks:=Жидкостные баки:
+outlet=Выходной
+inlet=Входной
+empty=пусто
+
+#--- common.multiblock.block.BlockReactorPart
+
+Block is not connected to a reactor. This could be due to lag, or a bug. If the problem persists, try breaking and re-placing the block.=Блок не подключен к реактору. Это может быть связано с лагом или багом. Если проблема не устранена попробуйте сломать и установить блок снова.
+
+#--- common.multiblock.block.BlockTurbinePart
+
+SERIOUS ERROR - server part @ %d, %d, %d has no controller!=Серьезная ошибка! - серверная часть @ %d, %d, %d не видит контроллер!
+
+#--- common.mulltiblock.tileentity.TileEnitityTurbinePartBase
+
+Not attached to controller!=Контроллер не установлен! 
+
+#--- GUI CONTROLS
+
+#--- BeefGuiFuelMixBar
+
+Core Fuel Status=Статус топлива
+full=Топлива
+depleted=Отработано
+Fuel Rods:=Топливных стержней:
+Max Capacity:=Максимальный объем:
+Fuel:=Топлива:
+Waste:=Отработки:
+Total:=Всего:
+        
+#--- BeefGuiInsertionProgressBar
+
+Control Rod=Управляющий стержень
+Insertion:=Погружение:
+
+#--- BeefCore Throws
+
+Machine is too small.=Машина слишком маленькая.
+Machine is too large, it may be at most %d blocks in the X dimension=Машина слишком большая, допустимо не больше %d блоков по X
+Machine is too large, it may be at most %d blocks in the Y dimension=Машина слишком большая, допустимо не больше %d блоков по Y
+Machine is too large, it may be at most %d blocks in the Z dimension=Машина слишком большая, допустимо не больше %d блоков по Z
+Machine is too small, it must be at least %d blocks in the X dimension=Машина слишком маленькая, необходимо не меньше %d блоков по X
+Machine is too small, it must be at least %d blocks in the Y dimension=Машина слишком маленькая, необходимо не меньше %d блоков по Y
+Machine is too small, it must be at least %d blocks in the Z dimension=Машина слишком маленькая, необходимо не меньше %d блоков по Z
+Part @ %d, %d, %d is incompatible with machines of type %s=@ %d, %d, %d Несовместимо с машинами типа: %s
+The controller with the lowest minimum-coord value must consume the one with the higher coords=Контроллер с самым низким значением минимальных координат должен использовать контроллер с более высокими координатами #Необходимо проверить эту строку!
+%d, %d, %d - Block is not valid for use in the machine's interior=%d, %d, %d -  Блок нельзя использовать внутри машины
+Adding a dirty controller to a world that has no registered controllers!=Добавление грязного контроллера в мир, в котором нет зарегистрированных контроллеров! #Необходимо и эту строку проверить, не понимаю смысла выражения без контекста.

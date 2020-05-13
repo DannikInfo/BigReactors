@@ -2,6 +2,7 @@ package erogenousbeef.bigreactors.common.multiblock.helpers;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.StatCollector;
 import cpw.mods.fml.common.network.ByteBufUtils;
 import erogenousbeef.bigreactors.api.registry.Reactants;
 import erogenousbeef.bigreactors.common.BRLog;
@@ -86,7 +87,7 @@ public abstract class ReactantContainer implements IConditionalUpdater {
 	/// ADD/REMOVE HELPERS
 	protected int addToStack(int idx, int fluidAmount) {
 		if(tanks[idx] == null) {
-			throw new IllegalArgumentException("Cannot add reactant with only an integer when tank is empty!");
+			throw new IllegalArgumentException(StatCollector.translateToLocal("Cannot add reactant with only an integer when tank is empty!"));
 		}
 		
 		int amtToAdd = Math.min(fluidAmount, getRemainingSpace());
@@ -333,7 +334,7 @@ public abstract class ReactantContainer implements IConditionalUpdater {
 	
 	public String getDebugInfo() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("Capacity: ").append(Integer.toString(getCapacity()));
+		sb.append("Capacity: ").append(Integer.toString(getCapacity()) + "\n");
 		for(int i = 0; i < tanks.length; i++) {
 			sb.append("[").append(Integer.toString(i)).append("] ").append(tankNames[i]).append(": ");
 			if(tanks[i] == null) {

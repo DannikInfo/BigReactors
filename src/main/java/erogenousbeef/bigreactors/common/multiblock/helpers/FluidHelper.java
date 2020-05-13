@@ -1,6 +1,7 @@
 package erogenousbeef.bigreactors.common.multiblock.helpers;
 
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.StatCollector;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
@@ -110,7 +111,7 @@ public abstract class FluidHelper implements IConditionalUpdater {
 	protected NBTTagCompound writeToNBT(NBTTagCompound destination) {
 		String[] tankNames = getNBTTankNames();
 		
-		if(tankNames.length != fluids.length) { throw new IllegalArgumentException("getNBTTankNames must return the same number of strings as there are fluid stacks"); }
+		if(tankNames.length != fluids.length) { throw new IllegalArgumentException(StatCollector.translateToLocal("getNBTTankNames must return the same number of strings as there are fluid stacks")); }
 
 		FluidStack stack;
 		for(int i = 0; i < tankNames.length; i++) {
@@ -126,7 +127,7 @@ public abstract class FluidHelper implements IConditionalUpdater {
 	protected void readFromNBT(NBTTagCompound data) {
 		String[] tankNames = getNBTTankNames();
 		
-		if(tankNames.length != fluids.length) { throw new IllegalArgumentException("getNBTTankNames must return the same number of strings as there are fluid stacks"); }
+		if(tankNames.length != fluids.length) { throw new IllegalArgumentException(StatCollector.translateToLocal("getNBTTankNames must return the same number of strings as there are fluid stacks")); }
 
 		for(int i = 0; i < tankNames.length; i++) {
 			if(data.hasKey(tankNames[i])) {
@@ -172,7 +173,7 @@ public abstract class FluidHelper implements IConditionalUpdater {
 	
 	protected int addFluidToStack(int idx, int fluidAmount) {
 		if(fluids[idx] == null || fluids[idx].getFluid() == null) {
-			throw new IllegalArgumentException("Cannot add fluid with only an integer when tank is empty!");
+			throw new IllegalArgumentException(StatCollector.translateToLocal("Cannot add fluid with only an integer when tank is empty!"));
 		}
 		
 		int amtToAdd = Math.min(fluidAmount, getRemainingSpaceForFluid(idx));
@@ -368,7 +369,7 @@ public abstract class FluidHelper implements IConditionalUpdater {
 	
 	public String getDebugInfo() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("Capacity (per): ").append(Integer.toString(getCapacity()));
+		sb.append("Capacity (per): ").append(Integer.toString(getCapacity()) + "\n");
 		String[] tankNames = getNBTTankNames();
 		for(int i = 0; i < fluids.length; i++) {
 			sb.append("[").append(Integer.toString(i)).append("] ").append(tankNames[i]).append(": ");

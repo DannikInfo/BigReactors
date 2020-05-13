@@ -3,6 +3,7 @@ package erogenousbeef.bigreactors.gui.controls;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.StatCollector;
 import erogenousbeef.bigreactors.client.gui.BeefGuiBase;
 import erogenousbeef.bigreactors.common.interfaces.IReactorFuelInfo;
 import erogenousbeef.bigreactors.gui.IBeefTooltipControl;
@@ -81,7 +82,7 @@ public class BeefGuiFuelMixBar extends BeefGuiVerticalProgressBar implements
 		float fullness = getProgress() * 100f;
 		float depletion;
 		String fuelString, wasteString;
-		fuelString = wasteString = "Empty";
+		fuelString = wasteString = StatCollector.translateToLocal("Empty");
 
 		if(entity.getFuelAmount() + entity.getWasteAmount() == 0) {
 			depletion = 0f;
@@ -99,15 +100,15 @@ public class BeefGuiFuelMixBar extends BeefGuiVerticalProgressBar implements
 			}
 		}
 		return new String[] {
-				EnumChatFormatting.AQUA + "Core Fuel Status",
-				String.format(" %2.1f%% full", fullness),
-				String.format(" %2.1f%% depleted", depletion),
+				EnumChatFormatting.AQUA + StatCollector.translateToLocal("Core Fuel Status"),
+				String.format(" %2.1f%% " + StatCollector.translateToLocal("full"), fullness),
+				String.format(" %2.1f%% " + StatCollector.translateToLocal("depleted"), depletion),
 				"",
-				String.format("Fuel Rods: %d", entity.getFuelRodCount()),
-				String.format("Max Capacity: %d mB", entity.getCapacity()),
-				String.format("Fuel: %s", fuelString),
-				String.format("Waste: %s", wasteString),
-				String.format("Total: %d mB", entity.getFuelAmount() + entity.getWasteAmount())
+				String.format(StatCollector.translateToLocal("Fuel Rods:") + " %d", entity.getFuelRodCount()),
+				String.format(StatCollector.translateToLocal("Max Capacity:") + " %d mB", entity.getCapacity()),
+				String.format(StatCollector.translateToLocal("Fuel:") + " %s", fuelString),
+				String.format(StatCollector.translateToLocal("Waste:") + " %s", wasteString),
+				String.format(StatCollector.translateToLocal("Total:") + " %d mB", entity.getFuelAmount() + entity.getWasteAmount())
 		};
 	}
 

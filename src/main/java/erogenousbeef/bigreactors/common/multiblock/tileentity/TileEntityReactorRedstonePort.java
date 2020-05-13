@@ -57,7 +57,7 @@ public class TileEntityReactorRedstonePort extends TileEntityReactorPartBase
 		case outputWasteAmount:
 			return checkVariable(reactor.getWasteAmount());
 		case outputEnergyAmount:
-			return checkVariable(reactor.getEnergyStoredPercentage());
+			return checkVariable((int)reactor.getEnergyGeneratedLastTick());
 		case DISABLED:
 			return false;
 		default:

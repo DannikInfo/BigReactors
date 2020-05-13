@@ -14,6 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -55,7 +56,7 @@ public class BlockMultiblockGlass extends BlockContainer {
 		case METADATA_TURBINE:
 			return new TileEntityTurbinePartGlass();
 		default:
-			throw new IllegalArgumentException("Unrecognized metadata");
+			throw new IllegalArgumentException(StatCollector.translateToLocal("Unrecognized metadata"));
 		}
 	}
 	
@@ -130,7 +131,7 @@ public class BlockMultiblockGlass extends BlockContainer {
 		}
 		
 		if(metadata < 0) {
-			throw new IllegalArgumentException("Unable to find a block with the name " + name);
+			throw new IllegalArgumentException(StatCollector.translateToLocal("Unable to find a block with the name ") + name);
 		}
 		return new ItemStack(this, 1, metadata);
 	}
@@ -157,7 +158,7 @@ public class BlockMultiblockGlass extends BlockContainer {
 				MultiblockControllerBase controller = ((IMultiblockPart)te).getMultiblockController();
 
 				if(controller == null) {
-					player.addChatMessage(new ChatComponentText(String.format("SERIOUS ERROR - server part @ %d, %d, %d has no controller!", x, y, z))); //TODO Localize
+					player.addChatMessage(new ChatComponentText(String.format(StatCollector.translateToLocal("SERIOUS ERROR - server part @ %d, %d, %d has no controller!"), x, y, z))); //TODO Localize
 				}
 				else {
 					Exception e = controller.getLastValidationException();
@@ -173,8 +174,7 @@ public class BlockMultiblockGlass extends BlockContainer {
 	}
 	
 	@Override
-    public boolean canCreatureSpawn(EnumCreatureType type, IBlockAccess world, int x, int y, int z)
-    {
+    public boolean canCreatureSpawn(EnumCreatureType type, IBlockAccess world, int x, int y, int z){
 		return false;
     }
 }

@@ -1,21 +1,27 @@
 Big Reactors Changelog
 ======================
 
-Next Release (Anticipated Version: 0.5.0A)
-------------------------------------------
-
-
-
-Current Release (0.4.3A)
+Current Release (0.5.0A)
 --------------------------------
+- **Dependency**: Forge dependency update to **10.13.4.1588**
+- **Dependency**: CoFHCore dependency update to **3.1.4-329**
+- **Dependency**: Industrial Craft 2 dependency add **2.2.827**
+- Remove Cyanite reprocesser
+- Blutonium craft now in IC2 thermal centrifuge
+- Now support EU and RF
+- Now GUI and other have normal translation in lang file
+- Fix Yellorium dupe in access reactor port
+- Now depends from IC2
+
+Older Releases
+--------------
+
+### 0.4.3A
 - **Dependency**: Forge dependency update to **10.13.2.1291**
 - **Dependency**: CoFHCore dependency update to **3.0.0RC7**
 - Bugfix: Fixed a number of crashes and corrupt states which could occur when breaking blocks on a running reactor. This occurred most commonly when breaking multiple blocks with a Tinker's Construct hammer.
 - Bugfix: Fixed reactorPowerProductionMultiplier and turbinePowerProductionMultiplier using the config value for powerProductionMultiplier, causing exponential output changes when changing powerProductionMultiplier.
 - Bugfix: Valentine's Day easter egg now correctly fires on Valentine's day, not a month later. Thanks RAnders00!
-
-Older Releases
---------------
 
 ### 0.4.2A/0.4.2A2
 - Enhancement: Added setControlRodName, getControlRodLocation Computer methods

@@ -1,6 +1,7 @@
 package erogenousbeef.bigreactors.common.data;
 
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.StatCollector;
 import erogenousbeef.bigreactors.common.BRLog;
 
 public class ReactantStack {
@@ -78,7 +79,7 @@ public class ReactantStack {
 	 */
 	public ReactantStack split(int desiredAmount) {
 		if(desiredAmount <= 0) { 
-			throw new IllegalArgumentException("Cannot split a reactant into a stack of size zero");
+			throw new IllegalArgumentException(StatCollector.translateToLocal("Cannot split a reactant into a stack of size zero"));
 		}
 
 		if(desiredAmount >= amount) { return this; }
