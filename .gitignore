@@ -32,3 +32,4 @@ usernamecache.json
 
 # BeefCore, when it's copied into the source tree
 /src/main/java/erogenousbeef/core
+lib/worldedit-forge-mc1.7.10-6.1.2-SNAPSHOT.jar

@@ -157,6 +157,8 @@ public class BigReactors {
 	public static float powerProductionMultiplier = 1.0f;
 	public static float fuelUsageMultiplier = 1.0f;
 	public static double RFtoEU = 0.25;
+	public static int reactorExplosionMaxRadius = 100;
+	public static int turbineMaxAttackRadius = 30;
 	
 	public static float reactorPowerProductionMultiplier = 1.0f;
 	public static float turbinePowerProductionMultiplier = 1.0f;
@@ -220,6 +222,8 @@ public class BigReactors {
 			turbinePowerProductionMultiplier = (float)BRConfig.CONFIGURATION.get("General", "turbinePowerProductionMultiplier", 1.0f, "A multiplier for balancing turbine power production. Stacks with powerProductionMultiplier. Defaults to 1.").getDouble(1.0);
 			
 			RFtoEU = BRConfig.CONFIGURATION.get("General", "RFtoEU", 0.25, "Coefficient of conversion of the RF into EU. Default 0.25, RF * RFtoEU = EU").getDouble(0.25);
+			reactorExplosionMaxRadius = BRConfig.CONFIGURATION.get("General", "reactorMaxExplosionRadius", 100, "Limits the maximum explosion area of a reactor").getInt(100);
+			turbineMaxAttackRadius = BRConfig.CONFIGURATION.get("General", "turbineMaxAttackRadius", 30, "Limits the maximum radius of attack of entities in a turbine explosion").getInt(30);
 			
 			maximumTurbineSize = BRConfig.CONFIGURATION.get("General",  "maxTurbineSize", 16, "The maximum valid size of a turbine in the X/Z plane, in blocks. Lower this for smaller turbines, which means lower max output.").getInt();
 			maximumTurbineHeight = BRConfig.CONFIGURATION.get("General",  "maxTurbineHeight", 32, "The maximum valid height of a turbine (Y axis), in blocks. (Default: 32)").getInt();

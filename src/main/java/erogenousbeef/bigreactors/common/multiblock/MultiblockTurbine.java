@@ -150,7 +150,6 @@ public class MultiblockTurbine extends RectangularMultiblockControllerBase imple
 		attachedRotorBlades = new HashSet<TileEntityTurbineRotorPart>();
 		attachedGlass = new HashSet<TileEntityTurbinePartGlass>();
 		
-		energyStored = 0f;
 		active = false;
 		inductorEngaged = true;
 		ventStatus = VentStatus.VentOverflow;
@@ -1053,7 +1052,7 @@ public class MultiblockTurbine extends RectangularMultiblockControllerBase imple
 		if(attachedRotorBlades.size() <= 0 || rotorMass <= 0) { return 0f; }
 		float speed = rotorEnergy / (attachedRotorBlades.size() * rotorMass);
 		if(speed > getMaxRotorSpeed())
-			speed = getMaxRotorSpeed();
+			MultiblockExplosion.turbineExplosion(worldObj, this.getMaximumCoord(), this.getMinimumCoord(), this.getReferenceCoord(), (int)this.getEnergyGeneratedLastTick(), (int)this.rotorMass);
 		return speed;
 	}
 
@@ -1063,7 +1062,7 @@ public class MultiblockTurbine extends RectangularMultiblockControllerBase imple
 	public float getRotorEfficiencyLastTick() { return rotorEfficiencyLastTick; }
 
 	public float getMaxRotorSpeed() {
-		return 2000f;
+		return 2100f;
 	}
 	
 	public int getRotorMass() {

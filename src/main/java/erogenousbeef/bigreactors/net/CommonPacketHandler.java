@@ -12,6 +12,7 @@ import erogenousbeef.bigreactors.net.message.DeviceUpdateExposureMessage;
 import erogenousbeef.bigreactors.net.message.DeviceUpdateMessage;
 import erogenousbeef.bigreactors.net.message.DeviceUpdateRotationMessage;
 import erogenousbeef.bigreactors.net.message.MachineCommandActivateMessage;
+import erogenousbeef.bigreactors.net.message.ParticleExplodeMessage;
 import erogenousbeef.bigreactors.net.message.ReactorAccessPortChangeDirectionMessage;
 import erogenousbeef.bigreactors.net.message.ReactorRedNetPortChangeMessage;
 import erogenousbeef.bigreactors.net.message.ReactorRedstonePortChangeMessage;
@@ -56,6 +57,7 @@ public class CommonPacketHandler {
         INSTANCE.registerMessage(ReactorUpdateMessage.Handler.class, ReactorUpdateMessage.class, 11, Side.CLIENT);
         INSTANCE.registerMessage(ReactorUpdateWasteEjectionMessage.Handler.class, ReactorUpdateWasteEjectionMessage.class, 13, Side.CLIENT);
         INSTANCE.registerMessage(TurbineUpdateMessage.Handler.class, TurbineUpdateMessage.class, 15, Side.CLIENT);
+        INSTANCE.registerMessage(ParticleExplodeMessage.Handler.class, ParticleExplodeMessage.class, 25, Side.CLIENT);
 
         // Client >> Server Messages
     	INSTANCE.registerMessage(MachineCommandActivateMessage.Handler.class, MachineCommandActivateMessage.class, 0, Side.SERVER);

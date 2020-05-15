@@ -2,9 +2,7 @@ package erogenousbeef.bigreactors.common.multiblock;
 
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Map;
 import java.util.Set;
-import java.util.TreeMap;
 
 import cofh.lib.util.helpers.ItemHelper;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
@@ -39,9 +37,11 @@ import erogenousbeef.core.multiblock.IMultiblockPart;
 import erogenousbeef.core.multiblock.MultiblockControllerBase;
 import erogenousbeef.core.multiblock.MultiblockValidationException;
 import erogenousbeef.core.multiblock.rectangular.RectangularMultiblockControllerBase;
+import ic2.core.ExplosionIC2;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
@@ -71,7 +71,6 @@ public class MultiblockReactor extends RectangularMultiblockControllerBase imple
 	private float reactorHeat;
 	private float fuelHeat;
 	private WasteEjectionSetting wasteEjection;
-	//private float energyStored;
 	protected FuelContainer fuelContainer;
 	protected RadiationHelper radiationHelper;
 	protected CoolantContainer coolantContainer;
@@ -119,7 +118,6 @@ public class MultiblockReactor extends RectangularMultiblockControllerBase imple
 		active = false;
 		reactorHeat = 0f;
 		fuelHeat = 0f;
-		//energyStored = 0f;
 		wasteEjection = WasteEjectionSetting.kAutomatic;
 
 		// Derived stats
@@ -401,7 +399,11 @@ public class MultiblockReactor extends RectangularMultiblockControllerBase imple
 		}
 		
 		// TODO: Overload/overheat
-
+		
+		if(this.reactorHeat > 2000){
+			MultiblockExplosion.reactorExplosion(worldObj, this.getReferenceCoord().x, this.getReferenceCoord().y, this.getReferenceCoord().z, (int)this.getEnergyGeneratedLastTick(), 0, this.getFuelAmount());
+		}
+		
 		// Update any connected tickables
 		for(ITickableMultiblockPart tickable : attachedTickables) {
 			tickable.onMultiblockServerTick();
